@@ -1,9 +1,17 @@
 package com.volsync.volsyncproject.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "organizations")
 public class Organization {
@@ -16,4 +24,9 @@ public class Organization {
 
     @Column(name = "created_date")
     private Date createdDate;
+
+    // one-to-one relation
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }

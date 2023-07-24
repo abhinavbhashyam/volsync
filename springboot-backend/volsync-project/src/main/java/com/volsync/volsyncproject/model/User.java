@@ -2,27 +2,37 @@ package com.volsync.volsyncproject.model;
 
 
 import jakarta.persistence.*;
-import lombok.Generated;
+import lombok.*;
+import org.springframework.stereotype.Service;
 
 import java.beans.ConstructorProperties;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User<UserType> {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_name", unique = true)
-    private String userName;
+
+    @Column(name = "user_name")
+    private String username;
     @Column(name = "pass_word")
     private String password;
     @Column(name = "user_role")
-    private Role role;
+    private String role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
+    Volunteer volunteer;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
+    Organization organization;
+
 
 }
 
-enum Role {
-    VOLUNTEER,
-    ORGANIZATION
-}
+
