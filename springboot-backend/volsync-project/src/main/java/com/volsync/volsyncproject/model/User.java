@@ -4,9 +4,8 @@ package com.volsync.volsyncproject.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.stereotype.Service;
 
-import java.beans.ConstructorProperties;
+
 
 @Getter
 @Setter
@@ -27,10 +26,14 @@ public class User {
     @Column(name = "user_role")
     private String role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
+    // note: one of these may be null, since a user has one-to-one relation with EITHER a volunteer OR an organization
+    // I found it would be easier to just store references to both in a single User to avoid extra boilerplate code
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     Volunteer volunteer;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     Organization organization;
 
 

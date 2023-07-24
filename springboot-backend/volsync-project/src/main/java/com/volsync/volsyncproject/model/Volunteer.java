@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,7 +38,6 @@ public class Volunteer {
     private String applicationMessage;
 
     // one-to-one relation
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

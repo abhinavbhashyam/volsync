@@ -24,7 +24,6 @@ public class Organization {
     private String orgName;
 
     // one-to-one relation
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
