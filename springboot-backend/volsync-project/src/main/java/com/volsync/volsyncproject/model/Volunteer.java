@@ -1,5 +1,6 @@
 package com.volsync.volsyncproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,18 +30,15 @@ public class Volunteer {
     @Column(name = "last_name")
     private String lastName;
 
-    // sex/gender
-    private Sex sex;
-
-    // date bof birth
-    @Column(name = "birth_date")
-    private Date birthDate;
+    // gender
+    private String gender;
 
     // application message
     @Column(name = "application_message")
     private String applicationMessage;
 
     // one-to-one relation
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -48,7 +46,3 @@ public class Volunteer {
 
 }
 
-enum Sex {
-    M,
-    F
-}

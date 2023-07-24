@@ -47,17 +47,30 @@ public class UserController {
      * Handles all requests to sync a user account and a volunteer (initialize foreign key references for one-to-one mapping)
      * @param volunteer the volunteer data that corresponds to the user with id = id (the id passed into the method)
      * @param userId the id of the user we are syncing the volunteer with
+     * @return a ResponseEntity corresponding to the user that has been synced with the created volunteer
      */
-    @PutMapping("/volunteers/{userId}")
-    public ResponseEntity<Volunteer> syncUserAccountAndVolunteer(@RequestBody Volunteer volunteer, @PathVariable Long userId) {
+    @PutMapping("{userId}/volunteers")
+    public ResponseEntity<User> createVolunteerAndSyncUserAccount(@RequestBody Volunteer volunteer, @PathVariable Long userId) {
+        // can throw ResourceNotFoundException if userId is invalid
+        User configuredUser = userService.createVolunteerAndSyncUserAccount(volunteer, userId);
 
-        if ()
-        userService.createVolunteerAndAssignUser(volunteer, id);
+        // return the configured user along with OK status
+        return new ResponseEntity<User>(configuredUser, HttpStatus.OK);
     }
 
-    @PutMapping("/organizations/{id}")
-    void createOrganization(@RequestBody Organization organization, @PathVariable Long id) {
-        userService.createOrganizationAndAssignUser(organization, id);
+    /**
+     * Handles all requests to sync a user account and an organization (initialize foreign key references for one-to-one mapping)
+     * @param organization the organization data that corresponds to the user with id = id (the id passed into the method)
+     * @param userId the id of the user we are syncing the organization with
+     * @return a ResponseEntity corresponding to the user that has been synced with the created organization
+     */
+    @PutMapping("{userId}/organizations")
+    public ResponseEntity<User> createOrganizationAndSyncUserAccount(@RequestBody Organization organization, @PathVariable Long userId) {
+        // can throw ResourceNotFoundException if userId is invalid
+        User configuredUser = userService.createOrganizationAndSyncUserAccount(organization, userId);
+
+        // return the configured user along with OK status
+        return new ResponseEntity<User>(configuredUser, HttpStatus.OK);
     }
 
 

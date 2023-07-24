@@ -1,5 +1,6 @@
 package com.volsync.volsyncproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,10 +23,8 @@ public class Organization {
     @Column(name = "org_name")
     private String orgName;
 
-    @Column(name = "created_date")
-    private Date createdDate;
-
     // one-to-one relation
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
