@@ -1,11 +1,10 @@
 package com.volsync.volsyncproject.service;
 
-import com.volsync.volsyncproject.exception.ResourceNotFoundException;
-import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.User;
-import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,13 +16,18 @@ public class UserService {
     // reference to the user repository later
     private final UserRepository userRepository;
 
+    // to encode user password (BCrypt)
+    private final PasswordEncoder passwordEncoder;
+
     /**
-     * Dependency injection for userRepository
-     * @param userRepository instance of our repository class
+     * Dependency injection for userRepository, and also initialize password encoder
+     *
+     * @param userRepository  instance of our repository class
      */
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
     /**
@@ -32,6 +36,9 @@ public class UserService {
      * @return the user that was added to the database
      */
     public User createUser(User user) {
+        // encode the user's password in the database using bcrypt
+        String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepository.save(user);
 
     }
