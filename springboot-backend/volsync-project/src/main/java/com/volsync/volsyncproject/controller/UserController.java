@@ -4,13 +4,16 @@ import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.User;
 import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.service.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
- * Handles requests involving User entity (mainly for login/registration)
+ * Handles requests involving User entity (mainly for registration)
  */
 @RestController
 @RequestMapping("/api/v1/users")    // handles requests of this format
@@ -39,7 +42,14 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         // create the user using the service
-        User createdUser = userService.createUser(user);
+        User createdUser;
+
+        try {
+            createdUser = userService.createUser(user);
+        } catch (SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException) {
+            return new ResponseEntity<User>((User) null, HttpStatus.BAD_REQUEST);
+        }
+
 
         // return the created user along with CREATED status
         return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);

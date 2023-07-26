@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
  * Handles all interaction with the UserRepository
  */
@@ -35,11 +37,11 @@ public class UserService {
      * @param user the user to create
      * @return the user that was added to the database
      */
-    public User createUser(User user) {
+    public User createUser(User user) throws SQLIntegrityConstraintViolationException {
         // encode the user's password in the database using bcrypt
         String encodedPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        return userRepository.save(user);
+        return userRepository.save(user);   // can throw exception is there is a duplicate username
 
     }
 
