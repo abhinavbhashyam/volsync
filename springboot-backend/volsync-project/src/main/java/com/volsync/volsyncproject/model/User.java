@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-
+/**
+ * Class that defines a User entity
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,19 +17,24 @@ import lombok.*;
 @Table(name = "users")
 public class User {
 
+    // primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // username must be unique (we are using it for authentication)
     @Column(name = "user_name", unique = true)
     private String username;
+
+    // password column (encrypted in the database using BCrypt)
     @Column(name = "pass_word")
     private String password;
+
+    // the role the user is (volunteer/organization)
     @Column(name = "user_role")
     private String role;
 
     // note: one of these may be null, since a user has one-to-one relation with EITHER a volunteer OR an organization
-    // I found it would be easier to just store references to both in a single User to avoid extra boilerplate code
     @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     Volunteer volunteer;

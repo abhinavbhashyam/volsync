@@ -8,34 +8,53 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Wrapper class around the user we are trying to authenticate
+ */
 public class CustomUserDetails implements UserDetails {
 
+    // user we are trying to authenticate
     private User user;
 
+    /**
+     * Initializes user instance
+     * @param user user instance we are initializing
+     */
     public CustomUserDetails(User user) {
         super();
         this.user = user;
     }
 
-    // retrieve the authority/role of the user
+    /**
+     * Retrieve the authority of the user
+     * @return the roles/authorities of the user
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
     }
 
-    // retrieve the password of the user
+    /**
+     * Get the password of the user
+     * @return the password of this user
+     */
     @Override
     public String getPassword() {
         return user.getPassword();
     }
 
-    // retrieve username of user
+    /**
+     * Get the username of the user
+     * @return the username of this user
+     */
     @Override
     public String getUsername() {
         return user.getUsername();
     }
 
-    // need below methods to return true to make sure auth doesn't fail for unintended reasons
+   /*
+   Need below methods to return true to make sure auth doesn't fail for unintended reasons
+    */
     @Override
     public boolean isAccountNonExpired() {
         return true;

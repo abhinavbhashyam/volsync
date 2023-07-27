@@ -9,6 +9,9 @@ import lombok.Setter;
 
 import java.sql.Date;
 
+/**
+ * Class that defines an organization entity
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -16,10 +19,12 @@ import java.sql.Date;
 @Entity
 @Table(name = "organizations")
 public class Organization {
+    // primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // org_name column
     @Column(name = "org_name")
     private String orgName;
 

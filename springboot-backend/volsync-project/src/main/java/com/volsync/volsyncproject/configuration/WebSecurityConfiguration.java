@@ -13,44 +13,58 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-// annotations needed for spring security to function
 @Configuration
 @EnableWebSecurity
+
 /**
- * If username (UNIQUE) not recognized, then CustomUserDetailsService does not successfully return UserDetails object,
- * so authentication has failed. Otherwise, UserDetails object has been returned successfully and has been given to
- * provider so provider will deal with password (why we pass bcrypt encoder) + roles
- *
- * CustomUserDetailsService returns us a CustomUserDetails object which contains user information like Username, Password,
- * Roles, and some expiration settings
- *
- *
+ * Configuration class for our application which uses Spring Security for auth-related tasks
  */
 public class WebSecurityConfiguration {
 
 
+    // reference to userDetailsService class (needed by DaoAuthenticationProvider)
     private final UserDetailsService userDetailsService;
 
+    /**
+     * Dependency injection for userDetailsService
+     * @param userDetailsService reference to userDetailsService
+     */
     @Autowired
     public WebSecurityConfiguration(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
+
+    /**
+     * Configures an AuthenticationProvider
+     * @return an AuthenticationProvider that houses user information to authenticate/authorize them
+     */
     @Bean
     AuthenticationProvider authenticationProvider() {
-        // DAO = data access object (accessing data within database to determine if user is valid/exists or not)
+        // auth provider that takes in info about user to authenticate them
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
         // contains more information about this user (username, password, roles)
+
+        // if username not found, loadUserByUsername fails in CustomUserDetailsService, throwing an exception
+            // -> authentication failed
+
+        // if username is found, loadUserByUsername returns a CustomUserDetails which contains information
+        // like the user's username, password, roles, etc.
+            // -> auth successful IF password checks out AND role checks out to access specific endpoint
         provider.setUserDetailsService(userDetailsService);
 
         // using bcrypt to encode passwords
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
 
-        // so we have found the username (UserDetailsService created successfully),
-        // but auth provider authenticates password + role management (authorization)
         return provider;
     }
 
+    /**
+     * Security configuration for various HTTP endpoints
+     * @param http httpSecurity reference
+     * @return the SecurityFilterChain for configuring authentication with various HTTP endpoints
+     * @throws Exception exception for failure in generating the SecurityFilterChain
+     */
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
@@ -59,11 +73,11 @@ public class WebSecurityConfiguration {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> {
-                    // these first three patterns are needed for the registration process, which is permitted to all
-                    // users (anyone can register)
+                    // these first three patterns are needed for the registration process, which does not require authentication
                     auth.requestMatchers("/api/v1/users").permitAll();
                     auth.requestMatchers("/api/v1/organizations").permitAll();
                     auth.requestMatchers("/api/v1/volunteers").permitAll();
+                    // log in requires auth
                     auth.requestMatchers("/api/v1/login/volunteer").hasAuthority("VOL");
                     auth.requestMatchers("/api/v1/login/organization").hasAuthority("ORG");
                 })

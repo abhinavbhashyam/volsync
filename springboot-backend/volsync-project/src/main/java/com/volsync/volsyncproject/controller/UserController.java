@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
- * Handles requests involving User entity (mainly for registration)
+ * Handles requests involving User entity
  */
 @RestController
 @RequestMapping("/api/v1/users")    // handles requests of this format

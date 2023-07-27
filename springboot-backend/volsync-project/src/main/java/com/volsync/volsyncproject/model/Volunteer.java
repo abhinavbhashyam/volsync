@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-
+/**
+ * Class that defines a Volunteer entity
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,7 +19,7 @@ import lombok.Setter;
 @Table(name = "volunteers")
 public class Volunteer {
 
-    // unique id
+    // primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

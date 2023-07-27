@@ -15,7 +15,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @Service
 public class UserService {
 
-    // reference to the user repository later
+    // reference to the user repository layer
     private final UserRepository userRepository;
 
     // to encode user password (BCrypt)
@@ -41,7 +41,7 @@ public class UserService {
         // encode the user's password in the database using bcrypt
         String encodedPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        return userRepository.save(user);   // can throw exception is there is a duplicate username
+        return userRepository.save(user);   // can throw exception if there is a duplicate username
 
     }
 

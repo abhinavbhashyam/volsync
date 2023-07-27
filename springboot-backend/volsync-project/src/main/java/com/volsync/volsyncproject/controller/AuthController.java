@@ -8,21 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Handles login sequence
+ * Controller to handle login requests (for volunteer and organization roles)
  */
 @RestController
 @RequestMapping("/api/v1/login")
 public class AuthController {
 
-    // after the user is authenticated, we need to retrieve the user object from the database
-
-    // note: since user is authenticated, we have their username, so we can find the user by username in the database
-    // and get the vol/org that it the user corresponds to.
+    /**
+     * Mapping to log in a volunteer account
+     * @return a ResponseEntity corresponding to a successfully logged in volunteer
+     */
     @GetMapping("/volunteer")
     public ResponseEntity<String> volunteerPage() {
         return new ResponseEntity<String>("VOL", HttpStatus.OK);
     }
 
+    /**
+     * Mapping to log in an organization account
+     * @return a ResponseEntity corresponding to a successfully logged in organization
+     */
     @GetMapping("/organization")
     public ResponseEntity<String> organizationPage() {
         return new ResponseEntity<String>("ORG", HttpStatus.OK);
