@@ -1,5 +1,6 @@
 package com.volsync.volsyncproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,12 +30,21 @@ public class Post {
     @Column(name = "post_body")
     private String postBody;
 
-    @Column(name = "event_date")
-    private Date eventDate;
+    @Column(name = "post_date")
+    private Date postDate;
 
     @Column(name = "num_accepted")
     private int numAccepted;
 
     @Column(name = "num_limit")
     private int numLimit;
+
+    @Transient
+    private String postDateString;
+
+    // one-to-many with organizations
+    @ManyToOne
+
+    @JoinColumn(name = "organization_id", referencedColumnName = "id")
+    private Organization organization;
 }

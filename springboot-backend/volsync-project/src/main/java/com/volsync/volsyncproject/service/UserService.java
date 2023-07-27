@@ -1,6 +1,9 @@
 package com.volsync.volsyncproject.service;
 
+import com.volsync.volsyncproject.exception.ResourceNotFoundException;
+import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.User;
+import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,4 +48,17 @@ public class UserService {
 
     }
 
+    public Volunteer getVolunteerCorrespondingToUser(Long userId) {
+        User desiredUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+
+        return desiredUser.getVolunteer();
+    }
+
+    public Organization getOrganizationCorrespondingToUser(Long userId) {
+        User desiredUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+
+        return desiredUser.getOrganization();
+    }
 }

@@ -36,11 +36,11 @@ public class User {
 
     // note: one of these may be null, since a user has one-to-one relation with EITHER a volunteer OR an organization
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Volunteer volunteer;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Organization organization;
 
 

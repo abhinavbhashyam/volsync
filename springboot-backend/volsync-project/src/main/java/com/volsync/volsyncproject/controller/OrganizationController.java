@@ -1,11 +1,15 @@
 package com.volsync.volsyncproject.controller;
 
 import com.volsync.volsyncproject.model.Organization;
+import com.volsync.volsyncproject.model.Post;
 import com.volsync.volsyncproject.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Handles HTTP requests involving the organization table in our database
@@ -49,5 +53,12 @@ public class OrganizationController {
         Organization assignedOrganization = organizationService.assignUserToOrganization(organizationId, userId);
 
         return new ResponseEntity<Organization>(assignedOrganization, HttpStatus.OK);
+    }
+
+    @GetMapping("/{organizationId}/posts")
+    public ResponseEntity<Set<Post>> getAllPostsFromOrganization(@PathVariable Long organizationId) {
+        Set<Post> postsFromOrganization = organizationService.getAllPostsFromOrganization(organizationId);
+
+        return new ResponseEntity<Set<Post>>(postsFromOrganization, HttpStatus.OK);
     }
 }

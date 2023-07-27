@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.Set;
 
 /**
  * Class that defines an organization entity
@@ -32,4 +33,8 @@ public class Organization {
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    // one-to-many relation
+    @OneToMany(mappedBy = "organization")
+    private Set<Post> posts;
 }

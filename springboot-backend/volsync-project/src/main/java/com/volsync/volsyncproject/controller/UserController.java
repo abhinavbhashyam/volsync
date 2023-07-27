@@ -47,11 +47,25 @@ public class UserController {
         try {
             createdUser = userService.createUser(user);
         } catch (SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException) {
-            return new ResponseEntity<User>((User) null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
 
         // return the created user along with CREATED status
         return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{userId}/volunteer")
+    public ResponseEntity<Volunteer> getVolunteerCorrespondingToUser(@PathVariable Long userId) {
+        Volunteer volunteerCorrespondingToUser = userService.getVolunteerCorrespondingToUser(userId);
+
+        return new ResponseEntity<Volunteer>(volunteerCorrespondingToUser, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/organization")
+    public ResponseEntity<Organization> getOrganizationCorrespondingToUser(@PathVariable Long userId) {
+        Organization organizationCorrespondingToUser = userService.getOrganizationCorrespondingToUser(userId);
+
+        return new ResponseEntity<Organization>(organizationCorrespondingToUser, HttpStatus.OK);
     }
 }

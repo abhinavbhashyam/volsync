@@ -1,14 +1,15 @@
 package com.volsync.volsyncproject.controller;
 
 import com.volsync.volsyncproject.model.Post;
+import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 
 /**
  * Handles HTTP requests involving the posts table in our database
@@ -32,8 +33,21 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        Post createdPost = postService.createPost(post);
+        Post createdPost;
+
+        try {
+            createdPost = postService.createPost(post);
+        } catch (ParseException parseException) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<Post>(createdPost, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{postId}/organizations/{organizationId}")
+    public ResponseEntity<Post> assignOrganizationToPost(@PathVariable Long postId, @PathVariable Long organizationId) {
+        Post assignedPost = postService.assignOrganizationToPost(postId, organizationId);
+
+        return new ResponseEntity<Post>(assignedPost, HttpStatus.OK);
     }
 }

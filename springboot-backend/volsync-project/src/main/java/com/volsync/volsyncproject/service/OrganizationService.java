@@ -2,12 +2,16 @@ package com.volsync.volsyncproject.service;
 
 import com.volsync.volsyncproject.exception.ResourceNotFoundException;
 import com.volsync.volsyncproject.model.Organization;
+import com.volsync.volsyncproject.model.Post;
 import com.volsync.volsyncproject.model.User;
 import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.repository.OrganizationRepository;
 import com.volsync.volsyncproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Service layer that directly interacts with repository layer to perform database operations
@@ -56,5 +60,13 @@ public class OrganizationService {
         organization.setUser(user);
 
         return organizationRepository.save(organization);
+    }
+
+    public Set<Post> getAllPostsFromOrganization(Long organizationId) {
+        Organization desiredOrganization = organizationRepository.findById(organizationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
+
+        return desiredOrganization.getPosts();
+
     }
 }
