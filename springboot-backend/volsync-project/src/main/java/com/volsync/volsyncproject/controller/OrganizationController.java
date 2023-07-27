@@ -61,4 +61,11 @@ public class OrganizationController {
 
         return new ResponseEntity<Set<Post>>(postsFromOrganization, HttpStatus.OK);
     }
+
+    @GetMapping("/{organizationId}")
+    public ResponseEntity<Organization> getOrganizationById(@PathVariable Long organizationId) {
+        Organization organization = organizationService.getOrganizationById(organizationId);
+
+        return new ResponseEntity<Organization>(organization, HttpStatus.OK);
+    }
 }

@@ -61,4 +61,11 @@ public class UserService {
 
         return desiredUser.getOrganization();
     }
+
+    public User getUserById(Long userId) {
+        User desiredUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+
+        return desiredUser;
+    }
 }

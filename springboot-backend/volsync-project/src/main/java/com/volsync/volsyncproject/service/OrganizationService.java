@@ -69,4 +69,10 @@ public class OrganizationService {
         return desiredOrganization.getPosts();
 
     }
+
+    public Organization getOrganizationById(Long organizationId) {
+        Organization organization = organizationRepository.findById(organizationId).orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
+
+        return organization;
+    }
 }

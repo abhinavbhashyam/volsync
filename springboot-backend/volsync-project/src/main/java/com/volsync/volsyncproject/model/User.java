@@ -1,7 +1,10 @@
 package com.volsync.volsyncproject.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonMerge;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,11 +38,9 @@ public class User {
     private String role;
 
     // note: one of these may be null, since a user has one-to-one relation with EITHER a volunteer OR an organization
-    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Volunteer volunteer;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Organization organization;
 

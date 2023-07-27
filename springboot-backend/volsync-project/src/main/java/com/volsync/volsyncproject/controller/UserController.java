@@ -55,17 +55,10 @@ public class UserController {
         return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{userId}/volunteer")
-    public ResponseEntity<Volunteer> getVolunteerCorrespondingToUser(@PathVariable Long userId) {
-        Volunteer volunteerCorrespondingToUser = userService.getVolunteerCorrespondingToUser(userId);
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
+        User user = userService.getUserById(userId);
 
-        return new ResponseEntity<Volunteer>(volunteerCorrespondingToUser, HttpStatus.OK);
-    }
-
-    @GetMapping("/{userId}/organization")
-    public ResponseEntity<Organization> getOrganizationCorrespondingToUser(@PathVariable Long userId) {
-        Organization organizationCorrespondingToUser = userService.getOrganizationCorrespondingToUser(userId);
-
-        return new ResponseEntity<Organization>(organizationCorrespondingToUser, HttpStatus.OK);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 }

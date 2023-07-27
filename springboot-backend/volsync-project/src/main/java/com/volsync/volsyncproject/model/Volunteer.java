@@ -1,11 +1,15 @@
 package com.volsync.volsyncproject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 
 /**
@@ -43,6 +47,9 @@ public class Volunteer {
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @ManyToMany(mappedBy = "volunteers")
+    private Set<Post> posts;
 
 
 }

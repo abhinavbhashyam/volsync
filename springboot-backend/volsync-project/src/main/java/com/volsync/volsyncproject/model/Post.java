@@ -1,6 +1,6 @@
 package com.volsync.volsyncproject.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.Set;
 
 /**
  * Class that defines a post entity
@@ -44,7 +45,16 @@ public class Post {
 
     // one-to-many with organizations
     @ManyToOne
-
     @JoinColumn(name = "organization_id", referencedColumnName = "id")
     private Organization organization;
+
+    // many to many with volunteers
+    @ManyToMany
+    @JoinTable(
+            name = "post_volunteer",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "volunteer_id")
+    )
+    private Set<Volunteer> volunteers;
+
 }
