@@ -48,13 +48,6 @@ public class Post {
     @JoinColumn(name = "organization_id", referencedColumnName = "id")
     private Organization organization;
 
-    // many to many with volunteers
-    @ManyToMany
-    @JoinTable(
-            name = "post_volunteer",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "volunteer_id")
-    )
-    private Set<Volunteer> volunteers;
+
 
 }
