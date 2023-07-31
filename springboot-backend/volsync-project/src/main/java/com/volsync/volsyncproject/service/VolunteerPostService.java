@@ -1,0 +1,60 @@
+package com.volsync.volsyncproject.service;
+
+import com.volsync.volsyncproject.exception.ResourceNotFoundException;
+import com.volsync.volsyncproject.model.Post;
+import com.volsync.volsyncproject.model.Volunteer;
+import com.volsync.volsyncproject.model.VolunteerPost;
+import com.volsync.volsyncproject.pk.VolunteerPostId;
+import com.volsync.volsyncproject.repository.PostRepository;
+import com.volsync.volsyncproject.repository.VolunteerPostRepository;
+import com.volsync.volsyncproject.repository.VolunteerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class VolunteerPostService {
+
+    private final VolunteerPostRepository volunteerPostRepository;
+
+    private final VolunteerRepository volunteerRepository;
+
+    private final PostRepository postRepository;
+
+    @Autowired
+    public VolunteerPostService(VolunteerPostRepository volunteerPostRepository,
+                                VolunteerRepository volunteerRepository, PostRepository postRepository) {
+        this.volunteerPostRepository = volunteerPostRepository;
+        this.volunteerRepository = volunteerRepository;
+        this.postRepository = postRepository;
+    }
+
+    public void assignPostToVolunteer(Long volunteerId, Long postId) {
+        Volunteer volunteer = volunteerRepository.findById(volunteerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Volunteer doesn't exist with id: " + volunteerId));
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post doesn't exist with id: " + postId));
+
+        VolunteerPost entrySignUp = new VolunteerPost();
+
+        entrySignUp.setVolunteer(volunteer);
+        entrySignUp.setPost(post);
+        entrySignUp.setStatus("pending");
+
+        volunteerPostRepository.save(entrySignUp);
+
+    }
+
+
+    public void updateStatusForVolunteerPost(Long volunteerId, Long postId, String newStatus) {
+        VolunteerPost toUpdate = volunteerPostRepository.findById(new VolunteerPostId(volunteerId, postId))
+                .orElseThrow(() -> new ResourceNotFoundException("Entry not found in join table with volunteerId: "
+                        + volunteerId + " and postId: " + postId));
+
+        toUpdate.setStatus(newStatus);
+
+
+        volunteerPostRepository.save(toUpdate);
+
+
+    }
+}

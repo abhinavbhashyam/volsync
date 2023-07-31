@@ -66,7 +66,7 @@ public class OrganizationService {
         Organization desiredOrganization = organizationRepository.findById(organizationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
 
-        return desiredOrganization.getPosts();
+        return desiredOrganization.getPostedPosts();
 
     }
 

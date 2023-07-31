@@ -9,7 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
+import org.hibernate.annotations.WhereJoinTable;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -49,6 +52,40 @@ public class Volunteer {
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    // many-to-many relation
+    @WhereJoinTable(clause = "status = 'pending'")
+    @ManyToMany
+    @JoinTable(
+            name = "r_volunteer_post",
+            joinColumns = @JoinColumn(name = "volunteer_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
+    private Set<Post> signedUpPosts = new HashSet<>();
+
+    // many-to-many relation
+    @WhereJoinTable(clause = "status = 'accepted'")
+    @ManyToMany
+    @JoinTable(
+            name = "r_volunteer_post",
+            joinColumns = @JoinColumn(name = "volunteer_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
+    private Set<Post> acceptedToPosts = new HashSet<>();
+
+    // many-to-many relation
+    @WhereJoinTable(clause = "status = 'rejected'")
+    @ManyToMany
+    @JoinTable(
+            name = "r_volunteer_post",
+            joinColumns = @JoinColumn(name = "volunteer_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
+    private Set<Post> rejectedFromPosts = new HashSet<>();
+
 
 
 }

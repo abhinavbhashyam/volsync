@@ -28,6 +28,7 @@ public class User {
 
     // password column (encrypted in the database using BCrypt)
     @Column(name = "pass_word")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     // the role the user is (volunteer/organization)

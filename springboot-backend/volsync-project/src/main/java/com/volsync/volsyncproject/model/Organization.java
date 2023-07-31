@@ -38,7 +38,7 @@ public class Organization {
     private User user;
 
     // one-to-many relation
-    @JsonIgnoreProperties("organization")
-    @OneToMany(mappedBy = "organization")
-    private Set<Post> posts;
+    @JsonIgnoreProperties("postedByOrganization")
+    @OneToMany(mappedBy = "postedByOrganization")
+    private Set<Post> postedPosts;
 }

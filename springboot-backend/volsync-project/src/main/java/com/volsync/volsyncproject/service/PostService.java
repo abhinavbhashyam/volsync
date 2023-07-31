@@ -41,7 +41,7 @@ public class PostService {
         Organization organization = organizationRepository.findById(organizationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
 
-        post.setOrganization(organization);
+        post.setPostedByOrganization(organization);
 
         return postRepository.save(post);
     }
