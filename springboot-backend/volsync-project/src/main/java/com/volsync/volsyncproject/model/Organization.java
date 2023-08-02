@@ -42,6 +42,6 @@ public class Organization {
     // one-to-many relation
     @JsonIgnoreProperties("postedByOrganization")
     @OneToMany(mappedBy = "postedByOrganization")
-    @Fetch(FetchMode.JOIN)
+    //@Fetch(FetchMode.JOIN)
     private Set<Post> postedPosts;
 }

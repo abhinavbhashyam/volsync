@@ -55,7 +55,7 @@ public class Volunteer {
     // many-to-many relation
     @WhereJoinTable(clause = "status = '0'")
     @ManyToMany
-    @Fetch(FetchMode.JOIN)
+    //@Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "r_volunteer_post",
             joinColumns = @JoinColumn(name = "volunteer_id"),
@@ -67,7 +67,7 @@ public class Volunteer {
     // many-to-many relation
     @WhereJoinTable(clause = "status = '1'")
     @ManyToMany
-    @Fetch(FetchMode.JOIN)
+   // @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "r_volunteer_post",
             joinColumns = @JoinColumn(name = "volunteer_id"),
@@ -79,7 +79,7 @@ public class Volunteer {
     // many-to-many relation
     @WhereJoinTable(clause = "status = '2'")
     @ManyToMany
-    @Fetch(FetchMode.JOIN)  // HOW the data is fetched
+    //@Fetch(FetchMode.JOIN)  // HOW the data is fetched
     @JoinTable(
             name = "r_volunteer_post",
             joinColumns = @JoinColumn(name = "volunteer_id"),

@@ -25,11 +25,11 @@ public class PostService {
         this.organizationRepository = organizationRepository;
     }
 
-    public void createPost(Post post) {
-        postRepository.save(post);
+    public Post createPost(Post post) {
+        return postRepository.save(post);
     }
 
-    public void assignOrganizationToPost(Long postId, Long organizationId) {
+    public Post assignOrganizationToPost(Long postId, Long organizationId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post doesn't exist with id: " + postId));
         Organization organization = organizationRepository.findById(organizationId)
@@ -37,6 +37,6 @@ public class PostService {
 
         post.setPostedByOrganization(organization);
 
-        postRepository.save(post);
+        return postRepository.save(post);
     }
 }

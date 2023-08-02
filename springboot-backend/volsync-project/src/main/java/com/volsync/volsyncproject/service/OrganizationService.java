@@ -41,8 +41,8 @@ public class OrganizationService {
      * @param organization the organization to save to the repository
      * @return the saved organization
      */
-    public void createOrganization(Organization organization) {
-        organizationRepository.save(organization);
+    public Organization createOrganization(Organization organization) {
+        return organizationRepository.save(organization);
     }
 
     /**

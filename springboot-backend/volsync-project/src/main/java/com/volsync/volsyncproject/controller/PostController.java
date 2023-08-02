@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
-import org.springframework.security.web.firewall.HttpStatusRequestRejectedHandler;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -33,16 +32,16 @@ public class PostController {
     }
 
     @PostMapping
-    public HttpStatus createPost(@RequestBody Post post) {
-        postService.createPost(post);
+    public ResponseEntity<Post> createPost(@RequestBody Post post) {
+        Post createdPost = postService.createPost(post);
 
-        return HttpStatus.NO_CONTENT;
+        return new ResponseEntity<Post>(createdPost, HttpStatus.CREATED);
     }
 
     @PutMapping("/{postId}/organizations/{organizationId}")
-    public HttpStatus assignOrganizationToPost(@PathVariable Long postId, @PathVariable Long organizationId) {
-        postService.assignOrganizationToPost(postId, organizationId);
+    public ResponseEntity<Post> assignOrganizationToPost(@PathVariable Long postId, @PathVariable Long organizationId) {
+        Post assignedPost = postService.assignOrganizationToPost(postId, organizationId);
 
-        return HttpStatus.NO_CONTENT;
+        return new ResponseEntity<Post>(assignedPost, HttpStatus.OK);
     }
 }

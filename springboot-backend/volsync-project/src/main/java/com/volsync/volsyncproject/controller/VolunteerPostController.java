@@ -19,17 +19,19 @@ public class VolunteerPostController {
     }
 
     @PostMapping("/{volunteerId}/posts/{postId}")
-    public HttpStatus assignPostToVolunteer(@PathVariable Long volunteerId, @PathVariable Long postId) {
-        volunteerPostService.assignPostToVolunteer(volunteerId, postId);
+    public ResponseEntity<VolunteerPost> assignPostToVolunteer(@PathVariable Long volunteerId, @PathVariable Long postId) {
+        VolunteerPost volunteerPost = volunteerPostService.assignPostToVolunteer(volunteerId, postId);
 
-        return HttpStatus.NO_CONTENT;
+        return new ResponseEntity<VolunteerPost>(volunteerPost, HttpStatus.CREATED);
     }
 
     @PutMapping("/{volunteerId}/posts/{postId}")
-    public HttpStatus updateStatusForVolunteerPost(@PathVariable Long volunteerId, @PathVariable Long postId,
-                                                   @RequestParam("status") String newStatus) {
-        volunteerPostService.updateStatusForVolunteerPost(volunteerId, postId, newStatus);
+    public ResponseEntity<VolunteerPost>
+    updateStatusForVolunteerPost(@PathVariable Long volunteerId, @PathVariable Long postId,
+                                                                      @RequestParam("status") String newStatus) {
+        VolunteerPost updatedVolunteerPost =
+                volunteerPostService.updateStatusForVolunteerPost(volunteerId, postId, newStatus);
 
-        return HttpStatus.NO_CONTENT;
+        return new ResponseEntity<VolunteerPost>(updatedVolunteerPost, HttpStatus.OK);
     }
 }

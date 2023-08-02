@@ -5,6 +5,7 @@ import com.volsync.volsyncproject.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -53,14 +54,6 @@ public class CustomUserDetails implements UserDetails {
         return user.getUsername();
     }
 
-    /**
-     * Get the user that is wrapped by this CustomUserDetails object
-     * @return the user that is wrapped by this CustomUserDetails object
-     */
-    public User getUser() {
-        return this.user;
-    }
-
    /*
    Need below methods to return true to make sure auth doesn't fail for unintended reasons
     */
@@ -83,4 +76,5 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

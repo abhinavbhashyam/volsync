@@ -42,8 +42,8 @@ public class VolunteerService {
      * @param volunteer the volunteer to save to the repository
      * @return the saved volunteer
      */
-    public void createVolunteer(Volunteer volunteer) {
-        volunteerRepository.save(volunteer);
+    public Volunteer createVolunteer(Volunteer volunteer) {
+        return volunteerRepository.save(volunteer);
     }
 
     /**

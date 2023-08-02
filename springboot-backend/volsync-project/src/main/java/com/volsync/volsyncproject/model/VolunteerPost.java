@@ -28,7 +28,6 @@ public class VolunteerPost implements Serializable {
     @MapsId("postId")
     private Post post;
 
-    @JsonIgnore
     private Status status;
 }
 

@@ -29,7 +29,7 @@ public class VolunteerPostService {
         this.postRepository = postRepository;
     }
 
-    public void assignPostToVolunteer(Long volunteerId, Long postId) {
+    public VolunteerPost assignPostToVolunteer(Long volunteerId, Long postId) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer doesn't exist with id: " + volunteerId));
         Post post = postRepository.findById(postId)
@@ -42,12 +42,12 @@ public class VolunteerPostService {
         entrySignUp.setVolunteer(volunteer);
         entrySignUp.setStatus(Status.PENDING);
 
-        volunteerPostRepository.save(entrySignUp);
+        return volunteerPostRepository.save(entrySignUp);
 
     }
 
 
-    public void updateStatusForVolunteerPost(Long volunteerId, Long postId, String newStatus) {
+    public VolunteerPost updateStatusForVolunteerPost(Long volunteerId, Long postId, String newStatus) {
         VolunteerPost toUpdate = volunteerPostRepository.findById(new VolunteerPostId(volunteerId, postId))
                 .orElseThrow(() -> new ResourceNotFoundException("Entry not found in join table with volunteerId: "
                         + volunteerId + " and postId: " + postId));
@@ -55,8 +55,7 @@ public class VolunteerPostService {
         toUpdate.setStatus(Status.valueOf(newStatus));
 
 
-        volunteerPostRepository.save(toUpdate);
-
+        return volunteerPostRepository.save(toUpdate);
 
     }
 }

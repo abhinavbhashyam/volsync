@@ -34,10 +34,10 @@ public class VolunteerController {
      * @return a ResponseEntity corresponding to the successfully created volunteer
      */
     @PostMapping
-    public HttpStatus createVolunteer(@RequestBody Volunteer volunteer) {
-        volunteerService.createVolunteer(volunteer);
+    public ResponseEntity<Volunteer> createVolunteer(@RequestBody Volunteer volunteer) {
+        Volunteer createdVolunteer = volunteerService.createVolunteer(volunteer);
 
-        return HttpStatus.NO_CONTENT;
+        return new ResponseEntity<Volunteer>(createdVolunteer, HttpStatus.CREATED);
     }
 
     /**

@@ -41,13 +41,13 @@ public class UserService {
      * @param user the user to create
      * @return the user that was added to the database
      */
-    public void createUser(User user) {
+    public User createUser(User user) {
         // encode the user's password in the database using bcrypt
         String encodedPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
         try {
-            userRepository.save(user);   // can throw exception if there is a duplicate username
+            return userRepository.save(user);   // can throw exception if there is a duplicate username
         } catch (Exception exception) {
             // the reason I need to catch general Exception here is b/c save method doesn't throw
             // SQLIntegrityConstraintViolationException, so I can't catch that exception here

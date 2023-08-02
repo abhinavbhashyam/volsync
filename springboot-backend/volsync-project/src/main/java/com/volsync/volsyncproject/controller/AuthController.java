@@ -4,11 +4,15 @@ import com.volsync.volsyncproject.auth_user_details.CustomUserDetails;
 import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.User;
 import com.volsync.volsyncproject.model.Volunteer;
+import com.volsync.volsyncproject.service.AuthService;
 import com.volsync.volsyncproject.service.UserService;
 import org.apache.coyote.Response;
+import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,6 +21,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/login")
 public class AuthController {
+
+    private final AuthService authService;
+
+    @Autowired
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     /**
      * Mapping to log in a volunteer account
@@ -36,7 +47,12 @@ public class AuthController {
         return new ResponseEntity<Organization>(getLoggedInUser().getOrganization(), HttpStatus.OK);
     }
 
-    private User getLoggedInUser() {
-        return ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+    public User getLoggedInUser() {
+        String usernameOfloggedInUser = ((CustomUserDetails) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal()).getUsername();
+
+        User loggedInUser = authService.findUserByUsername(usernameOfloggedInUser);
+
+        return loggedInUser;
     }
 }
