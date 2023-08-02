@@ -2,14 +2,12 @@ package com.volsync.volsyncproject.model;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.DialectOverride;
-import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.Where;
-import org.hibernate.annotations.WhereJoinTable;
+import org.hibernate.annotations.*;
 
 import java.sql.Date;
 import java.util.HashSet;
@@ -52,16 +50,19 @@ public class Post {
     // many-to-many with volunteers
     @ManyToMany(mappedBy = "signedUpPosts")
     @WhereJoinTable(clause = "status = '0'")
+    //@Fetch(FetchMode.JOIN)
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
     private Set<Volunteer> signedUpVolunteers = new HashSet<>();
 
     @ManyToMany(mappedBy = "acceptedToPosts")
     @WhereJoinTable(clause = "status = '1'")
+    //@Fetch(FetchMode.JOIN)
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
     private Set<Volunteer> acceptedVolunteers = new HashSet<>();
 
     @ManyToMany(mappedBy = "rejectedFromPosts")
     @WhereJoinTable(clause = "status = '2'")
+    //@Fetch(FetchMode.JOIN)
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
     private Set<Volunteer> rejectedVolunteers = new HashSet<>();
 

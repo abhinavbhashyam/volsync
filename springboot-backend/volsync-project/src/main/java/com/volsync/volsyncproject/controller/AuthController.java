@@ -48,10 +48,10 @@ public class AuthController {
     }
 
     public User getLoggedInUser() {
-        String usernameOfloggedInUser = ((CustomUserDetails) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal()).getUsername();
+        String loggedInUserUsername =
+                ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 
-        User loggedInUser = authService.findUserByUsername(usernameOfloggedInUser);
+        User loggedInUser = authService.findUserByUsername(loggedInUserUsername);
 
         return loggedInUser;
     }

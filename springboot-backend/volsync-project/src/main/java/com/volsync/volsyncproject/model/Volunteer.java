@@ -67,7 +67,7 @@ public class Volunteer {
     // many-to-many relation
     @WhereJoinTable(clause = "status = '1'")
     @ManyToMany
-   // @Fetch(FetchMode.JOIN)
+    //@Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "r_volunteer_post",
             joinColumns = @JoinColumn(name = "volunteer_id"),
