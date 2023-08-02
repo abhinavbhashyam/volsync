@@ -33,7 +33,7 @@ public class User {
 
     // the role the user is (volunteer/organization)
     @Column(name = "user_role")
-    private String role;
+    private Role role;
 
     // note: one of these may be null, since a user has one-to-one relation with EITHER a volunteer OR an organization
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -41,7 +41,6 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Organization organization;
-
 
 }
 

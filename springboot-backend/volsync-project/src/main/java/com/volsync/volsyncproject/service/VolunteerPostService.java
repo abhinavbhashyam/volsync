@@ -2,6 +2,7 @@ package com.volsync.volsyncproject.service;
 
 import com.volsync.volsyncproject.exception.ResourceNotFoundException;
 import com.volsync.volsyncproject.model.Post;
+import com.volsync.volsyncproject.model.Status;
 import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.model.VolunteerPost;
 import com.volsync.volsyncproject.pk.VolunteerPostId;
@@ -38,7 +39,7 @@ public class VolunteerPostService {
 
         entrySignUp.setVolunteer(volunteer);
         entrySignUp.setPost(post);
-        entrySignUp.setStatus("pending");
+        entrySignUp.setStatus(Status.PENDING);
 
         volunteerPostRepository.save(entrySignUp);
 
@@ -50,7 +51,7 @@ public class VolunteerPostService {
                 .orElseThrow(() -> new ResourceNotFoundException("Entry not found in join table with volunteerId: "
                         + volunteerId + " and postId: " + postId));
 
-        toUpdate.setStatus(newStatus);
+        toUpdate.setStatus(Status.valueOf(newStatus));
 
 
         volunteerPostRepository.save(toUpdate);

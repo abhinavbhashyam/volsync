@@ -40,9 +40,6 @@ public class Volunteer {
     @Column(name = "last_name")
     private String lastName;
 
-    // gender
-    private String gender;
-
     // application message
     @Column(name = "application_message")
     private String applicationMessage;
@@ -54,7 +51,7 @@ public class Volunteer {
     private User user;
 
     // many-to-many relation
-    @WhereJoinTable(clause = "status = 'pending'")
+    @WhereJoinTable(clause = "status = '0'")
     @ManyToMany
     @JoinTable(
             name = "r_volunteer_post",
@@ -65,7 +62,7 @@ public class Volunteer {
     private Set<Post> signedUpPosts = new HashSet<>();
 
     // many-to-many relation
-    @WhereJoinTable(clause = "status = 'accepted'")
+    @WhereJoinTable(clause = "status = '1'")
     @ManyToMany
     @JoinTable(
             name = "r_volunteer_post",
@@ -76,7 +73,7 @@ public class Volunteer {
     private Set<Post> acceptedToPosts = new HashSet<>();
 
     // many-to-many relation
-    @WhereJoinTable(clause = "status = 'rejected'")
+    @WhereJoinTable(clause = "status = '2'")
     @ManyToMany
     @JoinTable(
             name = "r_volunteer_post",

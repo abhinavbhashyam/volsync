@@ -1,5 +1,6 @@
 package com.volsync.volsyncproject.auth_user_details;
 
+import com.volsync.volsyncproject.model.Role;
 import com.volsync.volsyncproject.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,7 +32,7 @@ public class CustomUserDetails implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole() == Role.ORG ? "ORG" : "VOL"));
     }
 
     /**

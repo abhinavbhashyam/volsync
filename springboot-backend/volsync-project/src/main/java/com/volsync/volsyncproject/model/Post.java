@@ -37,14 +37,11 @@ public class Post {
     private String postBody;
 
     @Column(name = "post_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date postDate;
 
     @Column(name = "num_limit")
     private int numLimit;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Transient
-    private String postDateString;
 
     // one-to-many with organizations
     @ManyToOne
@@ -54,17 +51,17 @@ public class Post {
 
     // many-to-many with volunteers
     @ManyToMany(mappedBy = "signedUpPosts")
-    @WhereJoinTable(clause = "status = 'pending'")
+    @WhereJoinTable(clause = "status = '0'")
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
     private Set<Volunteer> signedUpVolunteers = new HashSet<>();
 
     @ManyToMany(mappedBy = "acceptedToPosts")
-    @WhereJoinTable(clause = "status = 'accepted'")
+    @WhereJoinTable(clause = "status = '1'")
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
     private Set<Volunteer> acceptedVolunteers = new HashSet<>();
 
     @ManyToMany(mappedBy = "rejectedFromPosts")
-    @WhereJoinTable(clause = "status = 'rejected'")
+    @WhereJoinTable(clause = "status = '2'")
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
     private Set<Volunteer> rejectedVolunteers = new HashSet<>();
 

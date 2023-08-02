@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,19 +17,17 @@ public class AuthController {
 
     /**
      * Mapping to log in a volunteer account
-     * @return a ResponseEntity corresponding to a successfully logged in volunteer
+     * @return a HttpStatus corresponding to a successfully logged in volunteer
      */
     @GetMapping("/volunteer")
-    public ResponseEntity<String> volunteerPage() {
-        return new ResponseEntity<String>("VOL", HttpStatus.OK);
+    public HttpStatus volunteerLogin() {
+        return HttpStatus.OK;
     }
 
     /**
      * Mapping to log in an organization account
-     * @return a ResponseEntity corresponding to a successfully logged in organization
+     * @return a HttpStatus corresponding to a successfully logged in organization
      */
     @GetMapping("/organization")
-    public ResponseEntity<String> organizationPage() {
-        return new ResponseEntity<String>("ORG", HttpStatus.OK);
-    }
+    public HttpStatus organizationLogin() { return HttpStatus.OK; }
 }

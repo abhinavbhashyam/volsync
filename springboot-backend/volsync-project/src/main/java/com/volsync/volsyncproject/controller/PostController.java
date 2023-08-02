@@ -33,13 +33,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        Post createdPost;
-
-        try {
-            createdPost = postService.createPost(post);
-        } catch (ParseException parseException) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+        Post createdPost = postService.createPost(post);
 
         return new ResponseEntity<Post>(createdPost, HttpStatus.CREATED);
     }

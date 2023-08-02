@@ -1,5 +1,6 @@
 package com.volsync.volsyncproject.controller;
 
+import com.volsync.volsyncproject.exception.ResourceNotFoundException;
 import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.Post;
 import com.volsync.volsyncproject.service.OrganizationService;
@@ -55,17 +56,4 @@ public class OrganizationController {
         return new ResponseEntity<Organization>(assignedOrganization, HttpStatus.OK);
     }
 
-    @GetMapping("/{organizationId}/posts")
-    public ResponseEntity<Set<Post>> getAllPostsFromOrganization(@PathVariable Long organizationId) {
-        Set<Post> postsFromOrganization = organizationService.getAllPostsFromOrganization(organizationId);
-
-        return new ResponseEntity<Set<Post>>(postsFromOrganization, HttpStatus.OK);
-    }
-
-    @GetMapping("/{organizationId}")
-    public ResponseEntity<Organization> getOrganizationById(@PathVariable Long organizationId) {
-        Organization organization = organizationService.getOrganizationById(organizationId);
-
-        return new ResponseEntity<Organization>(organization, HttpStatus.OK);
-    }
 }

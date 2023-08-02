@@ -61,18 +61,5 @@ public class OrganizationService {
 
         return organizationRepository.save(organization);
     }
-
-    public Set<Post> getAllPostsFromOrganization(Long organizationId) {
-        Organization desiredOrganization = organizationRepository.findById(organizationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
-
-        return desiredOrganization.getPostedPosts();
-
-    }
-
-    public Organization getOrganizationById(Long organizationId) {
-        Organization organization = organizationRepository.findById(organizationId).orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
-
-        return organization;
-    }
+    
 }

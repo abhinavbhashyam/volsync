@@ -25,13 +25,7 @@ public class PostService {
         this.organizationRepository = organizationRepository;
     }
 
-    public Post createPost(Post post) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date parsed = format.parse(post.getPostDateString());
-        java.sql.Date sqlDate = new java.sql.Date(parsed.getTime());
-
-        post.setPostDate(sqlDate);
-
+    public Post createPost(Post post) {
         return postRepository.save(post);
     }
 

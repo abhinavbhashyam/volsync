@@ -23,9 +23,9 @@ public class VolunteerPostController {
         return HttpStatus.OK;
     }
 
-    @PutMapping("/{volunteerId}/posts/{postId}/status/{newStatus}")
+    @PutMapping("/{volunteerId}/posts/{postId}")
     public HttpStatus updateStatusForVolunteerPost(@PathVariable Long volunteerId, @PathVariable Long postId,
-                                                   @PathVariable String newStatus) {
+                                                   @RequestParam("status") String newStatus) {
         volunteerPostService.updateStatusForVolunteerPost(volunteerId, postId, newStatus);
 
         return HttpStatus.OK;
