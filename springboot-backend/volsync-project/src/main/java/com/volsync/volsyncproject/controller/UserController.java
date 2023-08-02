@@ -42,14 +42,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         // create the user using the service
-        User createdUser;
-
-        try {
-            createdUser = userService.createUser(user);
-        } catch (SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-
+        User createdUser = userService.createUser(user);
 
         // return the created user along with CREATED status
         return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);

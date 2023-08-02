@@ -1,5 +1,6 @@
 package com.volsync.volsyncproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.volsync.volsyncproject.pk.VolunteerPostId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 @Setter
 public class VolunteerPost implements Serializable {
     @EmbeddedId
+    @JsonIgnore
     private VolunteerPostId id = new VolunteerPostId();
 
     @ManyToOne
@@ -26,6 +28,7 @@ public class VolunteerPost implements Serializable {
     @MapsId("postId")
     private Post post;
 
+    @JsonIgnore
     private Status status;
 }
 

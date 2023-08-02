@@ -53,6 +53,14 @@ public class CustomUserDetails implements UserDetails {
         return user.getUsername();
     }
 
+    /**
+     * Get the user that is wrapped by this CustomUserDetails object
+     * @return the user that is wrapped by this CustomUserDetails object
+     */
+    public User getUser() {
+        return this.user;
+    }
+
    /*
    Need below methods to return true to make sure auth doesn't fail for unintended reasons
     */

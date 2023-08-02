@@ -47,10 +47,10 @@ public class VolunteerController {
      * @return a ResponseEntity corresponding to the volunteer which has just been assigned a user account
      */
     @PutMapping("/{volunteerId}/users/{userId}")
-    public ResponseEntity<Volunteer> assignUserToVolunteer(@PathVariable Long volunteerId, @PathVariable Long userId) {
-        Volunteer assignedVolunteer = volunteerService.assignUserToVolunteer(volunteerId, userId);
+    public HttpStatus assignUserToVolunteer(@PathVariable Long volunteerId, @PathVariable Long userId) {
+        volunteerService.assignUserToVolunteer(volunteerId, userId);
 
-        return new ResponseEntity<Volunteer>(assignedVolunteer, HttpStatus.OK);
+        return HttpStatus.NO_CONTENT;
     }
 
 

@@ -1,8 +1,10 @@
 package com.volsync.volsyncproject.controller;
 
+import com.volsync.volsyncproject.model.VolunteerPost;
 import com.volsync.volsyncproject.service.VolunteerPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +22,7 @@ public class VolunteerPostController {
     public HttpStatus assignPostToVolunteer(@PathVariable Long volunteerId, @PathVariable Long postId) {
         volunteerPostService.assignPostToVolunteer(volunteerId, postId);
 
-        return HttpStatus.OK;
+        return HttpStatus.NO_CONTENT;
     }
 
     @PutMapping("/{volunteerId}/posts/{postId}")
@@ -28,6 +30,6 @@ public class VolunteerPostController {
                                                    @RequestParam("status") String newStatus) {
         volunteerPostService.updateStatusForVolunteerPost(volunteerId, postId, newStatus);
 
-        return HttpStatus.OK;
+        return HttpStatus.NO_CONTENT;
     }
 }

@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
 
@@ -40,5 +42,6 @@ public class Organization {
     // one-to-many relation
     @JsonIgnoreProperties("postedByOrganization")
     @OneToMany(mappedBy = "postedByOrganization")
+    @Fetch(FetchMode.JOIN)
     private Set<Post> postedPosts;
 }

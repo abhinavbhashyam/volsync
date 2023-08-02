@@ -51,7 +51,7 @@ public class OrganizationService {
      * @param userId the id of the corresponding user account
      * @return the newly updated organization
      */
-    public Organization assignUserToOrganization(Long organizationId, Long userId) {
+    public void assignUserToOrganization(Long organizationId, Long userId) {
         Organization organization = organizationRepository.findById(organizationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
         User user = userRepository.findById(userId)
@@ -59,7 +59,7 @@ public class OrganizationService {
 
         organization.setUser(user);
 
-        return organizationRepository.save(organization);
+        organizationRepository.save(organization);
     }
-    
+
 }

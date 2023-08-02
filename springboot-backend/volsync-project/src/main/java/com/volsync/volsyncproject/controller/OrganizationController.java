@@ -50,10 +50,11 @@ public class OrganizationController {
      * @return a ResponseEntity corresponding to the organization which has just been assigned a user account
      */
     @PutMapping("/{organizationId}/users/{userId}")
-    public ResponseEntity<Organization> assignUserToOrganization(@PathVariable Long organizationId, @PathVariable Long userId) {
-        Organization assignedOrganization = organizationService.assignUserToOrganization(organizationId, userId);
+    public HttpStatus assignUserToOrganization(@PathVariable Long organizationId, @PathVariable Long userId) {
+        organizationService.assignUserToOrganization(organizationId, userId);
 
-        return new ResponseEntity<Organization>(assignedOrganization, HttpStatus.OK);
+        return HttpStatus.NO_CONTENT;
+
     }
 
 }

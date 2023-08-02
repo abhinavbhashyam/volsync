@@ -52,7 +52,7 @@ public class VolunteerService {
      * @param userId the id of the corresponding user account
      * @return the newly updated volunteer
      */
-    public Volunteer assignUserToVolunteer(Long volunteerId, Long userId) {
+    public void assignUserToVolunteer(Long volunteerId, Long userId) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer doesn't exist with id: " + volunteerId));
         User user = userRepository.findById(userId)
@@ -60,7 +60,7 @@ public class VolunteerService {
 
         volunteer.setUser(user);
 
-        return volunteerRepository.save(volunteer);
+        volunteerRepository.save(volunteer);
     }
 
 }

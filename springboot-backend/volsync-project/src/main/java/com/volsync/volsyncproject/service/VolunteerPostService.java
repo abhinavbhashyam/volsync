@@ -37,8 +37,9 @@ public class VolunteerPostService {
 
         VolunteerPost entrySignUp = new VolunteerPost();
 
-        entrySignUp.setVolunteer(volunteer);
+
         entrySignUp.setPost(post);
+        entrySignUp.setVolunteer(volunteer);
         entrySignUp.setStatus(Status.PENDING);
 
         volunteerPostRepository.save(entrySignUp);
