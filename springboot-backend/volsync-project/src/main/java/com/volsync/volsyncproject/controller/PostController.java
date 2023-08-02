@@ -33,10 +33,10 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        Post createdPost = postService.createPost(post);
+    public HttpStatus createPost(@RequestBody Post post) {
+        postService.createPost(post);
 
-        return new ResponseEntity<Post>(createdPost, HttpStatus.CREATED);
+        return HttpStatus.NO_CONTENT;
     }
 
     @PutMapping("/{postId}/organizations/{organizationId}")

@@ -40,12 +40,12 @@ public class UserController {
      * @return a ResponseEntity corresponding to the user that was created as well as CREATED http status
      */
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public HttpStatus createUser(@RequestBody User user) {
         // create the user using the service
-        User createdUser = userService.createUser(user);
+         userService.createUser(user);
 
         // return the created user along with CREATED status
-        return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+        return HttpStatus.NO_CONTENT;
     }
 
     @GetMapping("/{userId}")

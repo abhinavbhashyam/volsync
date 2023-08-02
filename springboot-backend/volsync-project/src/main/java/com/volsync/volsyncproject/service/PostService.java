@@ -25,8 +25,8 @@ public class PostService {
         this.organizationRepository = organizationRepository;
     }
 
-    public Post createPost(Post post) {
-        return postRepository.save(post);
+    public void createPost(Post post) {
+        postRepository.save(post);
     }
 
     public void assignOrganizationToPost(Long postId, Long organizationId) {

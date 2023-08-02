@@ -37,10 +37,10 @@ public class OrganizationController {
      * @return a ResponseEntity corresponding to the successfully created organization
      */
     @PostMapping
-    public ResponseEntity<Organization> createOrganization(@RequestBody Organization organization) {
-        Organization createdOrganization = organizationService.createOrganization(organization);
+    public HttpStatus createOrganization(@RequestBody Organization organization) {
+        organizationService.createOrganization(organization);
 
-        return new ResponseEntity<Organization>(createdOrganization, HttpStatus.CREATED);
+        return HttpStatus.NO_CONTENT;
     }
 
     /**
