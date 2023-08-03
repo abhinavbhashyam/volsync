@@ -48,7 +48,9 @@ public class Post {
     // many-to-many with organizations (many posts belong to one organization)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "postedPosts"})
+    // problem is that entities are loaded lazily and serialization happens before they get loaded fully, so that's
+    // why we should ignore hibernateLazyInitializer
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "postedPosts"})
     private Organization postedByOrganization;
 
     /*
