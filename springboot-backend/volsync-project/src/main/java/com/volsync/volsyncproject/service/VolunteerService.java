@@ -53,13 +53,17 @@ public class VolunteerService {
      * @return the newly updated volunteer
      */
     public void assignUserToVolunteer(Long volunteerId, Long userId) {
+        // find volunteer and user, throwing exceptions if they don't exist in database
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer doesn't exist with id: " + volunteerId));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id: " + userId));
 
+        // assign foreign key reference
         volunteer.setUser(user);
 
+
+        // save the updated volunteer
         volunteerRepository.save(volunteer);
     }
 

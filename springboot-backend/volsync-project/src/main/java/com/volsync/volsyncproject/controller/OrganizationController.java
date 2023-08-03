@@ -1,16 +1,12 @@
 package com.volsync.volsyncproject.controller;
 
-import com.volsync.volsyncproject.exception.ResourceNotFoundException;
 import com.volsync.volsyncproject.model.Organization;
-import com.volsync.volsyncproject.model.Post;
 import com.volsync.volsyncproject.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Set;
 
 /**
  * Handles HTTP requests involving the organization table in our database
@@ -46,8 +42,8 @@ public class OrganizationController {
     /**
      * Assigns to an organization its corresponding user account (user accounts are used to authenticate organization)
      * @param organizationId the id of the organization we are assigning the user account to
-     * @param userId the id of the user entry in the users table that corresponds to organization with id = organizationId
-     * @return a ResponseEntity corresponding to the organization which has just been assigned a user account
+     * @param userId the id of the user entity in the users table that corresponds to organization with id = organizationId
+     * @return a HttpStatus indicating successful "linking" of user to organization
      */
     @PutMapping("/{organizationId}/users/{userId}")
     public HttpStatus assignUserToOrganization(@PathVariable Long organizationId, @PathVariable Long userId) {

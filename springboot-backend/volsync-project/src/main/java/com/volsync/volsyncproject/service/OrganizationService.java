@@ -2,16 +2,11 @@ package com.volsync.volsyncproject.service;
 
 import com.volsync.volsyncproject.exception.ResourceNotFoundException;
 import com.volsync.volsyncproject.model.Organization;
-import com.volsync.volsyncproject.model.Post;
 import com.volsync.volsyncproject.model.User;
-import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.repository.OrganizationRepository;
 import com.volsync.volsyncproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * Service layer that directly interacts with repository layer to perform database operations
@@ -49,16 +44,18 @@ public class OrganizationService {
      * Assigns to the given organization the user account that corresponds to it
      * @param organizationId the id of the given organization
      * @param userId the id of the corresponding user account
-     * @return the newly updated organization
      */
     public void assignUserToOrganization(Long organizationId, Long userId) {
+        // find the organization and user, throwing exceptions if given ids are incorrect
         Organization organization = organizationRepository.findById(organizationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id: " + userId));
 
+        // set foreign key reference for the organization
         organization.setUser(user);
 
+        // update organization in database
         organizationRepository.save(organization);
     }
 

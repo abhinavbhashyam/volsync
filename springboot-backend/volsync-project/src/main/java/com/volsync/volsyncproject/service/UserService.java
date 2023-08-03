@@ -2,16 +2,13 @@ package com.volsync.volsyncproject.service;
 
 import com.volsync.volsyncproject.exception.DuplicateUsernameException;
 import com.volsync.volsyncproject.exception.ResourceNotFoundException;
-import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.User;
-import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * Handles all interaction with the UserRepository
@@ -49,12 +46,19 @@ public class UserService {
         try {
             return userRepository.save(user);   // can throw exception if there is a duplicate username
         } catch (Exception exception) {
-            // the reason I need to catch general Exception here is b/c save method doesn't throw
+            // the reason I need to catch general Exception here is b/c save method doesn't (explicitly) throw
             // SQLIntegrityConstraintViolationException, so I can't catch that exception here
             throw new DuplicateUsernameException("Username already exists: " + user.getUsername());
         }
     }
+
+    /**
+     * Get a user by their id
+     * @param userId the id of the user we are trying to get
+     * @return the user we are trying to get
+     */
     public User getUserById(Long userId) {
+        // fetch user from database, throwing exception if they are not found
         User desiredUser = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 

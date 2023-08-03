@@ -1,14 +1,16 @@
-package com.volsync.volsyncproject.pk;
+package com.volsync.volsyncproject.primary_key;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
+/**
+ * Primary key for join table contains two components: volunteer and post id
+ */
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor

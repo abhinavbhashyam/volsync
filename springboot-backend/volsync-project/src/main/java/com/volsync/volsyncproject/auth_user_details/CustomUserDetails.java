@@ -5,13 +5,13 @@ import com.volsync.volsyncproject.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Wrapper class around the user we are trying to authenticate
+ * Wrapper class around the user that we are trying to authenticate (needed for AuthenticationProvider).
+ * Contains more information (for example, authorities) about the user we are trying to authenticate
  */
 public class CustomUserDetails implements UserDetails {
 
@@ -20,7 +20,7 @@ public class CustomUserDetails implements UserDetails {
 
     /**
      * Initializes user instance
-     * @param user user instance we are initializing
+     * @param user user object corresponding to the user we are trying to authenticate
      */
     public CustomUserDetails(User user) {
         super();
@@ -33,6 +33,7 @@ public class CustomUserDetails implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        // return authority based on role
         return Collections.singleton(new SimpleGrantedAuthority(user.getRole() == Role.ORG ? "ORG" : "VOL"));
     }
 

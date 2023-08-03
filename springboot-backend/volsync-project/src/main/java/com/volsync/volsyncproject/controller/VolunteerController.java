@@ -1,8 +1,6 @@
 package com.volsync.volsyncproject.controller;
 
-import com.volsync.volsyncproject.model.User;
 import com.volsync.volsyncproject.model.Volunteer;
-import com.volsync.volsyncproject.service.UserService;
 import com.volsync.volsyncproject.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +42,7 @@ public class VolunteerController {
      * Assigns to a volunteer its corresponding user account (user accounts are used to authenticate volunteer)
      * @param volunteerId the id of the volunteer we are assigning the user account to
      * @param userId the id of the user entry in the users table that corresponds to volunteer with id = volunteerId
-     * @return a ResponseEntity corresponding to the volunteer which has just been assigned a user account
+     * @return a HttpStatus indicating successful assignment of user
      */
     @PutMapping("/{volunteerId}/users/{userId}")
     public HttpStatus assignUserToVolunteer(@PathVariable Long volunteerId, @PathVariable Long userId) {

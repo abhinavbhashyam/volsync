@@ -35,11 +35,14 @@ public class User {
     @Column(name = "user_role")
     private Role role;
 
+    /*
+    One-to-one with volunteer/organization (one user corresponds to one volunteer/organization entity)
+     */
     // note: one of these may be null, since a user has one-to-one relation with EITHER a volunteer OR an organization
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user")
     Volunteer volunteer;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user")
     Organization organization;
 
 }

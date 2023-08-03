@@ -1,15 +1,12 @@
 package com.volsync.volsyncproject.controller;
 
 import com.volsync.volsyncproject.model.Post;
-import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 
 /**
  * Handles HTTP requests involving the posts table in our database
@@ -31,6 +28,11 @@ public class PostController {
         this.postService = postService;
     }
 
+    /**
+     * Adds a post to the database (calls on service class)
+     * @param post the post to add
+     * @return a ResponseEntity corresponding to a successfully created post
+     */
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
         Post createdPost = postService.createPost(post);
@@ -38,6 +40,12 @@ public class PostController {
         return new ResponseEntity<Post>(createdPost, HttpStatus.CREATED);
     }
 
+    /**
+     * Assigns to a post the organization that posted it
+     * @param postId the id of the post we are assigning the organization to
+     * @param organizationId the id of the organization that is being assigned to the post
+     * @return a ResponseEntity corresponding to the updated post
+     */
     @PutMapping("/{postId}/organizations/{organizationId}")
     public ResponseEntity<Post> assignOrganizationToPost(@PathVariable Long postId, @PathVariable Long organizationId) {
         Post assignedPost = postService.assignOrganizationToPost(postId, organizationId);

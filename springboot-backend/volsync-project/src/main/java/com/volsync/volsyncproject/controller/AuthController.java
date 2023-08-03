@@ -5,14 +5,10 @@ import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.User;
 import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.service.AuthService;
-import com.volsync.volsyncproject.service.UserService;
-import org.apache.coyote.Response;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,8 +18,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/login")
 public class AuthController {
 
+    // reference to auth service layer
     private final AuthService authService;
 
+    /**
+     * Dependency injection for auth service
+     * @param authService reference to auth service class
+     */
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
@@ -31,7 +32,7 @@ public class AuthController {
 
     /**
      * Mapping to log in a volunteer account
-     * @return a HttpStatus corresponding to a successfully logged in volunteer
+     * @return a ResponseEntity corresponding to a successfully logged in volunteer
      */
     @PostMapping("/volunteer")
     public ResponseEntity<Volunteer> volunteerLogin() {
@@ -40,19 +41,26 @@ public class AuthController {
 
     /**
      * Mapping to log in an organization account
-     * @return a HttpStatus corresponding to a successfully logged in organization
+     * @return a ResponseEntity corresponding to a successfully logged in organization
      */
     @PostMapping("/organization")
     public ResponseEntity<Organization> organizationLogin() {
         return new ResponseEntity<Organization>(getLoggedInUser().getOrganization(), HttpStatus.OK);
     }
 
+    /**
+     * Private helper method to help us fetch the user information of the currently logged in user
+     * @return the object corresponding to the currently logged in user
+     */
     public User getLoggedInUser() {
+        // get the username of the logged in user
         String loggedInUserUsername =
                 ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 
+        // fetch that user's user object
         User loggedInUser = authService.findUserByUsername(loggedInUserUsername);
 
+        // return user object
         return loggedInUser;
     }
 }

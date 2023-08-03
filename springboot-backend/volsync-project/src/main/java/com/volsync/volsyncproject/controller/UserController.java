@@ -1,22 +1,18 @@
 package com.volsync.volsyncproject.controller;
 
-import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.User;
-import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.service.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
- * Handles requests involving User entity
+ * Handles requests involving User table in database
  */
 @RestController
-@RequestMapping("/api/v1/users")    // handles requests of this format
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     // reference to our service layer for users
@@ -48,6 +44,11 @@ public class UserController {
         return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
     }
 
+    /**
+     * Get a user from the databse based on their id
+     * @param userId the id of the user we want
+     * @return a ResponseEntity corresponding to the user we wanted to get
+     */
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable Long userId) {
         User user = userService.getUserById(userId);

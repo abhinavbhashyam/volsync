@@ -1,7 +1,6 @@
 package com.volsync.volsyncproject.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,7 +19,6 @@ import org.springframework.security.web.SecurityFilterChain;
  * Configuration class for our application which uses Spring Security for auth-related tasks
  */
 public class WebSecurityConfiguration {
-
 
     // reference to userDetailsService class (needed by DaoAuthenticationProvider)
     private final UserDetailsService userDetailsService;
@@ -67,22 +65,20 @@ public class WebSecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-
-        // we will permit all willing to go to root page, but to go to /home or /admin they need to be authenticated
-        // and have the proper role
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> {
-                    // these first three patterns are needed for the registration process, which does not require authentication
+                    // these first five patterns do not require authentication
                     auth.requestMatchers("/api/v1/users").permitAll();
                     auth.requestMatchers("/api/v1/organizations").permitAll();
                     auth.requestMatchers("/api/v1/volunteers").permitAll();
                     auth.requestMatchers("/api/v1/posts").permitAll();
+                    auth.requestMatchers("/api/v1/volunteer-posts/volunteers").permitAll();
                     // log in requires auth
                     auth.requestMatchers("/api/v1/login/volunteer").hasAuthority("VOL");
                     auth.requestMatchers("/api/v1/login/organization").hasAuthority("ORG");
                 })
-                .httpBasic(Customizer.withDefaults())   // transmits credentials as username/password pairs
+                .httpBasic(Customizer.withDefaults())
                 .build();
     }
 
