@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.io.Serializable;
 
@@ -18,23 +20,24 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public class VolunteerPost implements Serializable {
+public class VolunteerPost {
     // remember id has two components, so have created custom id
     @EmbeddedId
     @JsonIgnore
     private VolunteerPostId id = new VolunteerPostId();
 
     // volunteer component (many entries in table correspond to one volunteer)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("volunteerId")
     private Volunteer volunteer;
 
     // post component (many entries in the table correspond to one post)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("postId")
     private Post post;
 
     // status for this sign up (pending, accepted, rejected)
+    @Enumerated(value = EnumType.STRING)
     private Status status;
 }
 

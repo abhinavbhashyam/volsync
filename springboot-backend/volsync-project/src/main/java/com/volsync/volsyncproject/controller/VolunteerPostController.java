@@ -31,13 +31,13 @@ public class VolunteerPostController {
      * Signs up a volunteer to a post (initial status = pending)
      * @param volunteerId the id of the volunteer we are signing up to the post
      * @param postId the id of the post that we are signing up the volunteer to
-     * @return a ResponseEntity corresponding to a successful entry in our join table
+     * @return a HttpStatus indicating the status of this request
      */
     @PostMapping("/{volunteerId}/posts/{postId}")
-    public ResponseEntity<VolunteerPost> assignPostToVolunteer(@PathVariable Long volunteerId, @PathVariable Long postId) {
-        VolunteerPost volunteerPost = volunteerPostService.assignPostToVolunteer(volunteerId, postId);
+    public HttpStatus assignPostToVolunteer(@PathVariable Long volunteerId, @PathVariable Long postId) {
+        volunteerPostService.assignPostToVolunteer(volunteerId, postId);
 
-        return new ResponseEntity<VolunteerPost>(volunteerPost, HttpStatus.CREATED);
+        return HttpStatus.NO_CONTENT;
     }
 
     /**
@@ -45,15 +45,14 @@ public class VolunteerPostController {
      * @param volunteerId the id of the volunteer whose status we are updating
      * @param postId the id of the post for which the volunteer's status is being updated
      * @param newStatus the new status to the post
-     * @return a ResponseEntity corresponding to the newly updated entry in our join table
+     * @return a HttpStatus indicating the status of this request
      */
     @PutMapping("/{volunteerId}/posts/{postId}")
-    public ResponseEntity<VolunteerPost>
+    public HttpStatus
     updateStatusForVolunteerPost(@PathVariable Long volunteerId, @PathVariable Long postId,
                                                                       @RequestParam("status") String newStatus) {
-        VolunteerPost updatedVolunteerPost =
-                volunteerPostService.updateStatusForVolunteerPost(volunteerId, postId, newStatus);
+        volunteerPostService.updateStatusForVolunteerPost(volunteerId, postId, newStatus);
 
-        return new ResponseEntity<VolunteerPost>(updatedVolunteerPost, HttpStatus.OK);
+        return HttpStatus.NO_CONTENT;
     }
 }

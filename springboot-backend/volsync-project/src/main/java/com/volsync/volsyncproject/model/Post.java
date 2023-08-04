@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.HashSet;
@@ -22,6 +23,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "posts")
+@Transactional
 public class Post {
     // primary key
     @Id
@@ -45,30 +47,31 @@ public class Post {
     @Column(name = "num_limit")
     private int numLimit;
 
-    // many-to-many with organizations (many posts belong to one organization)
-    @ManyToOne(fetch = FetchType.LAZY)
+    // many-to-one with organizations (many posts belong to one organization)
+    @ManyToOne
     @JoinColumn(name = "organization_id", referencedColumnName = "id")
-    // problem is that entities are loaded lazily and serialization happens before they get loaded fully, so that's
-    // why we should ignore hibernateLazyInitializer
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "postedPosts"})
+    @JsonIgnoreProperties("postedPosts")
     private Organization postedByOrganization;
 
     /*
      Following three sets support many-to-many relation with volunteers (many posts can have many volunteers)
      */
     @ManyToMany(mappedBy = "signedUpPosts")
-    @WhereJoinTable(clause = "status = '0'")    // only want signed up posts
+    @WhereJoinTable(clause = "status = 'PENDING'")    // only want signed up posts
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
+    @Fetch(FetchMode.JOIN)
     private Set<Volunteer> signedUpVolunteers = new HashSet<>();
 
     @ManyToMany(mappedBy = "acceptedToPosts")
-    @WhereJoinTable(clause = "status = '1'")    // only want accepted posts
+    @WhereJoinTable(clause = "status = 'ACCEPTED'")    // only want accepted posts
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
+    @Fetch(FetchMode.JOIN)
     private Set<Volunteer> acceptedVolunteers = new HashSet<>();
 
     @ManyToMany(mappedBy = "rejectedFromPosts")
-    @WhereJoinTable(clause = "status = '2'")    // only want rejected posts
+    @WhereJoinTable(clause = "status = 'REJECTED'")    // only want rejected posts
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
+    @Fetch(FetchMode.JOIN)
     private Set<Volunteer> rejectedVolunteers = new HashSet<>();
 
 

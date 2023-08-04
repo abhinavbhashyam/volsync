@@ -7,7 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.WhereJoinTable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -51,7 +54,7 @@ public class Volunteer {
     /*
     Following three sets support many-to-many relation with volunteers (many volunteers can have many posts)
     */
-    @WhereJoinTable(clause = "status = '0'")    // only want pending posts
+    @WhereJoinTable(clause = "status = 'PENDING'")    // only want pending posts
     @ManyToMany
     @JoinTable(
             name = "r_volunteer_post",
@@ -59,9 +62,10 @@ public class Volunteer {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
+    @Fetch(FetchMode.JOIN)
     private Set<Post> signedUpPosts = new HashSet<>();
 
-    @WhereJoinTable(clause = "status = '1'")    // only want accepted posts
+    @WhereJoinTable(clause = "status = 'ACCEPTED'")    // only want accepted posts
     @ManyToMany
     @JoinTable(
             name = "r_volunteer_post",
@@ -69,9 +73,10 @@ public class Volunteer {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
+    @Fetch(FetchMode.JOIN)
     private Set<Post> acceptedToPosts = new HashSet<>();
 
-    @WhereJoinTable(clause = "status = '2'")    // only want rejected posts
+    @WhereJoinTable(clause = "status = 'REJECTED'")    // only want rejected posts
     @ManyToMany
     @JoinTable(
             name = "r_volunteer_post",
@@ -79,6 +84,7 @@ public class Volunteer {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
+    @Fetch(FetchMode.JOIN)
     private Set<Post> rejectedFromPosts = new HashSet<>();
 
 

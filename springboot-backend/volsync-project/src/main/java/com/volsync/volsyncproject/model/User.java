@@ -33,6 +33,7 @@ public class User {
 
     // the role the user is (volunteer/organization)
     @Column(name = "user_role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     /*

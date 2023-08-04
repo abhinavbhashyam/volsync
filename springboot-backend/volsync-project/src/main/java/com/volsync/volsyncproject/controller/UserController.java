@@ -33,19 +33,18 @@ public class UserController {
      * Handles all requests to create a User
      *
      * @param user the user we want to create
-     * @return a ResponseEntity corresponding to the user that was created as well as CREATED http status
+     * @return a HttpStatus indicating the status of this request
      */
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public HttpStatus createUser(@RequestBody User user) {
         // create the user using the service
-        User createdUser = userService.createUser(user);
+        userService.createUser(user);
 
-        // return the created user along with CREATED status
-        return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+        return HttpStatus.NO_CONTENT;
     }
 
     /**
-     * Get a user from the databse based on their id
+     * Get a user from the database based on their id
      * @param userId the id of the user we want
      * @return a ResponseEntity corresponding to the user we wanted to get
      */

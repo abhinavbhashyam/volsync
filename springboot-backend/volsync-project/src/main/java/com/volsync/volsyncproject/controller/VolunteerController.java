@@ -1,5 +1,6 @@
 package com.volsync.volsyncproject.controller;
 
+import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,13 @@ public class VolunteerController {
     /**
      * Creates a volunteer within the database
      * @param volunteer the volunteer to create
-     * @return a ResponseEntity corresponding to the successfully created volunteer
+     * @return a HttpStatus indicating the status of this request
      */
     @PostMapping
-    public ResponseEntity<Volunteer> createVolunteer(@RequestBody Volunteer volunteer) {
-        Volunteer createdVolunteer = volunteerService.createVolunteer(volunteer);
+    public HttpStatus createVolunteer(@RequestBody Volunteer volunteer) {
+        volunteerService.createVolunteer(volunteer);
 
-        return new ResponseEntity<Volunteer>(createdVolunteer, HttpStatus.CREATED);
+        return HttpStatus.NO_CONTENT;
     }
 
     /**
@@ -49,6 +50,19 @@ public class VolunteerController {
         volunteerService.assignUserToVolunteer(volunteerId, userId);
 
         return HttpStatus.NO_CONTENT;
+    }
+
+    /**
+     * Gets a volunteer from the database by id
+     * @param volunteerId the id of the volunteer we want to get
+     * @return a ResponseEntity corresponding to the volunteer we are trying to get
+     */
+    @GetMapping("/{volunteerId}")
+    public ResponseEntity<Volunteer> getVolunteerById(@PathVariable Long volunteerIdId) {
+        Volunteer volunteer = volunteerService.getVolunteerById(volunteerIdId);
+
+        return new ResponseEntity<Volunteer>(volunteer, HttpStatus.OK);
+
     }
 
 

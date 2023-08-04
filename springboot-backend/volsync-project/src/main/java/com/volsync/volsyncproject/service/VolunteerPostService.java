@@ -45,9 +45,8 @@ public class VolunteerPostService {
      * Signs up a volunteer to a post
      * @param volunteerId the id of the volunteer who is being signed up
      * @param postId the id of the post to which the volunteer is being signed up
-     * @return the entry in our join table corresponding to a successful sign up
      */
-    public VolunteerPost assignPostToVolunteer(Long volunteerId, Long postId) {
+    public void assignPostToVolunteer(Long volunteerId, Long postId) {
         // retrieve the volunteer and post from the database, throwing exceptions where necessary
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer doesn't exist with id: " + volunteerId));
@@ -62,8 +61,8 @@ public class VolunteerPostService {
         entrySignUp.setVolunteer(volunteer);
         entrySignUp.setStatus(Status.PENDING);
 
-        // return the newly created entry
-        return volunteerPostRepository.save(entrySignUp);
+        // save the entity
+        volunteerPostRepository.save(entrySignUp);
 
     }
 
@@ -73,10 +72,9 @@ public class VolunteerPostService {
      * @param volunteerId the id of the volunteer whose status we're updating
      * @param postId the id of the post for which the volunteer's status is being updated
      * @param newStatus the new status
-     * @return the entry in our join table corresponding that has just been updated
      */
-    public VolunteerPost updateStatusForVolunteerPost(Long volunteerId, Long postId, String newStatus) {
-        // retrieve the specific row in our join table that we need to update by utilzing our composite primary key
+    public void updateStatusForVolunteerPost(Long volunteerId, Long postId, String newStatus) {
+        // retrieve the specific row in our join table that we need to update by utilizing our composite primary key
         // class
         VolunteerPost toUpdate = volunteerPostRepository.findById(new VolunteerPostId(volunteerId, postId))
                 .orElseThrow(() -> new ResourceNotFoundException("Entry not found in join table with volunteerId: "
@@ -87,7 +85,7 @@ public class VolunteerPostService {
 
 
         // save the entry
-        return volunteerPostRepository.save(toUpdate);
+        volunteerPostRepository.save(toUpdate);
 
     }
 }

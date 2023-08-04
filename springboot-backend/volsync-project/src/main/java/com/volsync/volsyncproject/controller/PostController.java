@@ -31,25 +31,25 @@ public class PostController {
     /**
      * Adds a post to the database (calls on service class)
      * @param post the post to add
-     * @return a ResponseEntity corresponding to a successfully created post
+     * @return a HttpStatus indicating the status of this request
      */
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        Post createdPost = postService.createPost(post);
+    public HttpStatus createPost(@RequestBody Post post) {
+        postService.createPost(post);
 
-        return new ResponseEntity<Post>(createdPost, HttpStatus.CREATED);
+        return HttpStatus.NO_CONTENT;
     }
 
     /**
      * Assigns to a post the organization that posted it
      * @param postId the id of the post we are assigning the organization to
      * @param organizationId the id of the organization that is being assigned to the post
-     * @return a ResponseEntity corresponding to the updated post
+     * @return a HttpStatus indicating the status of this request
      */
     @PutMapping("/{postId}/organizations/{organizationId}")
-    public ResponseEntity<Post> assignOrganizationToPost(@PathVariable Long postId, @PathVariable Long organizationId) {
-        Post assignedPost = postService.assignOrganizationToPost(postId, organizationId);
+    public HttpStatus assignOrganizationToPost(@PathVariable Long postId, @PathVariable Long organizationId) {
+        postService.assignOrganizationToPost(postId, organizationId);
 
-        return new ResponseEntity<Post>(assignedPost, HttpStatus.OK);
+        return HttpStatus.NO_CONTENT;
     }
 }

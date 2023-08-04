@@ -1,10 +1,7 @@
 package com.volsync.volsyncproject.service;
 
 import com.volsync.volsyncproject.exception.ResourceNotFoundException;
-import com.volsync.volsyncproject.model.Post;
-import com.volsync.volsyncproject.model.User;
-import com.volsync.volsyncproject.model.Volunteer;
-import com.volsync.volsyncproject.model.VolunteerPost;
+import com.volsync.volsyncproject.model.*;
 import com.volsync.volsyncproject.repository.PostRepository;
 import com.volsync.volsyncproject.repository.UserRepository;
 import com.volsync.volsyncproject.repository.VolunteerPostRepository;
@@ -40,17 +37,15 @@ public class VolunteerService {
     /**
      * Calls on volunteer repository to save the given volunteer
      * @param volunteer the volunteer to save to the repository
-     * @return the saved volunteer
      */
-    public Volunteer createVolunteer(Volunteer volunteer) {
-        return volunteerRepository.save(volunteer);
+    public void createVolunteer(Volunteer volunteer) {
+        volunteerRepository.save(volunteer);
     }
 
     /**
      * Assigns to the given volunteer the user account that corresponds to it
      * @param volunteerId the id of the given volunteer
      * @param userId the id of the corresponding user account
-     * @return the newly updated volunteer
      */
     public void assignUserToVolunteer(Long volunteerId, Long userId) {
         // find volunteer and user, throwing exceptions if they don't exist in database
@@ -67,4 +62,17 @@ public class VolunteerService {
         volunteerRepository.save(volunteer);
     }
 
+    /**
+     * Gets a volunteer by its id from the database
+     * @param volunteerId the id of the volunteer we want to get
+     * @return the volunteer with id = volunteerId
+     */
+    public Volunteer getVolunteerById(Long volunteerId) {
+        // find the organization
+        Volunteer volunteer = volunteerRepository.findById(volunteerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Volunteer doesn't exist with id: " + volunteerId));
+
+        // return it
+        return volunteer;
+    }
 }

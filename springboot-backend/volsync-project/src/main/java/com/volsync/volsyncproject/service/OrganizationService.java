@@ -34,10 +34,9 @@ public class OrganizationService {
     /**
      * Calls on organization repository to save the given organization
      * @param organization the organization to save to the repository
-     * @return the saved organization
      */
-    public Organization createOrganization(Organization organization) {
-        return organizationRepository.save(organization);
+    public void createOrganization(Organization organization) {
+        organizationRepository.save(organization);
     }
 
     /**
@@ -59,4 +58,17 @@ public class OrganizationService {
         organizationRepository.save(organization);
     }
 
+    /**
+     * Gets an organization by its id from the database
+     * @param organizationId the id of the organization we want to get
+     * @return the organization with id = organizationId
+     */
+    public Organization getOrganizationById(Long organizationId) {
+        // find the organization
+        Organization organization = organizationRepository.findById(organizationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Organization doesn't exist with id: " + organizationId));
+
+        // return it
+        return organization;
+    }
 }

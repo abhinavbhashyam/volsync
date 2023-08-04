@@ -34,19 +34,17 @@ public class PostService {
     /**
      * Creates a post within the database
      * @param post the post to create
-     * @return the created post
      */
-    public Post createPost(Post post) {
-        return postRepository.save(post);
+    public void createPost(Post post) {
+        postRepository.save(post);
     }
 
     /**
      * Assigns to a post the organization that posted it
      * @param postId the id of the post we are assigning the organization to
      * @param organizationId the id of the organization that posted the post with id = postId
-     * @return the updated post
      */
-    public Post assignOrganizationToPost(Long postId, Long organizationId) {
+    public void assignOrganizationToPost(Long postId, Long organizationId) {
         // find the post and organization, throwing exceptions if ids are invalid
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post doesn't exist with id: " + postId));
@@ -56,7 +54,7 @@ public class PostService {
         // initialize the foreign key reference
         post.setPostedByOrganization(organization);
 
-        // return the updated post
-        return postRepository.save(post);
+        // save the post
+        postRepository.save(post);
     }
 }
