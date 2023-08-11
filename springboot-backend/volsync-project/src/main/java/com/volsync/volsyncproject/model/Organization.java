@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -22,7 +21,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "organizations")
-@Transactional
 public class Organization {
     // primary key
     @Id

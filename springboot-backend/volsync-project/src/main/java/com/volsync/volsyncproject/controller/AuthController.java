@@ -22,7 +22,8 @@ public class AuthController {
      */
     @PostMapping("/volunteer")
     public ResponseEntity<Volunteer> volunteerLogin() {
-        return new ResponseEntity<Volunteer>(getLoggedInUser().getVolunteer(), HttpStatus.OK);
+        // note: CREATED status b/c we are creating a volunteer "session" within app
+        return new ResponseEntity<Volunteer>(getLoggedInUser().getVolunteer(), HttpStatus.CREATED);
     }
 
     /**
@@ -31,15 +32,19 @@ public class AuthController {
      */
     @PostMapping("/organization")
     public ResponseEntity<Organization> organizationLogin() {
-        return new ResponseEntity<Organization>(getLoggedInUser().getOrganization(), HttpStatus.OK);
+        // note: CREATED status b/c we are creating an organization "session" within app
+        return new ResponseEntity<Organization>(getLoggedInUser().getOrganization(), HttpStatus.CREATED);
     }
 
     /**
      * Private helper method to help us fetch the user information of the currently logged in user
      * @return the object corresponding to the currently logged in user
      */
-    public User getLoggedInUser() {
+    private User getLoggedInUser() {
         // get the user that's currently logged in
+
+        // note: since we are not interacting with a database for this operation, I have not put this method inside
+        // its own service class
         User loggedInUser =
                 ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 

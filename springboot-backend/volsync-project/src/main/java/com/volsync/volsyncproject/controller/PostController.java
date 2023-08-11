@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * Handles HTTP requests involving the posts table in our database
@@ -52,4 +54,5 @@ public class PostController {
 
         return HttpStatus.NO_CONTENT;
     }
+
 }

@@ -18,9 +18,14 @@ import java.io.Serializable;
 @Setter
 public class VolunteerPostId implements Serializable {
 
+    // primary key has two components: volunteerId and postId
     private Long volunteerId;
     private Long postId;
 
+    /**
+     * Overridden hash code method
+     * @return the hash code for this object
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -32,6 +37,11 @@ public class VolunteerPostId implements Serializable {
         return result;
     }
 
+    /**
+     * Overridden equals method
+     * @param obj the other object with which we are checking for equality
+     * @return true if the objects are equal, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

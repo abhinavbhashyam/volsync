@@ -57,7 +57,6 @@ public class CustomUserDetails implements UserDetails {
 
     /**
      * Gets the user corresponding to this CustomUserDetails object
-     *
      * @return the user corresponding to this CustomUserDetails object
      */
     public User getUser() {

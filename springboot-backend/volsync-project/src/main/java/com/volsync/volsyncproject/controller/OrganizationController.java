@@ -2,7 +2,6 @@ package com.volsync.volsyncproject.controller;
 
 import com.volsync.volsyncproject.model.Organization;
 import com.volsync.volsyncproject.service.OrganizationService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

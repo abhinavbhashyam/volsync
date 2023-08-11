@@ -4,7 +4,6 @@ import com.volsync.volsyncproject.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * Repository layer to interact with user table

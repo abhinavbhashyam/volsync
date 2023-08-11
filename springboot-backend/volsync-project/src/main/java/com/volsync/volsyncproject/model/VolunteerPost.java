@@ -7,10 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import java.io.Serializable;
 
 /**
  * Entity corresponding to our volunteer_post join table
@@ -23,16 +19,17 @@ import java.io.Serializable;
 public class VolunteerPost {
     // remember id has two components, so have created custom id
     @EmbeddedId
-    @JsonIgnore
     private VolunteerPostId id = new VolunteerPostId();
 
     // volunteer component (many entries in table correspond to one volunteer)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @MapsId("volunteerId")
     private Volunteer volunteer;
 
     // post component (many entries in the table correspond to one post)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @MapsId("postId")
     private Post post;
 

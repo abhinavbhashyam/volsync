@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.HashSet;
@@ -23,7 +22,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "posts")
-@Transactional
 public class Post {
     // primary key
     @Id
