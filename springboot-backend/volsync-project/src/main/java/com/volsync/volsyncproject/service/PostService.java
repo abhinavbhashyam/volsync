@@ -59,5 +59,5 @@ public class PostService {
         // save the post
         postRepository.save(post);
     }
-    
+
 }

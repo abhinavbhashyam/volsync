@@ -85,8 +85,7 @@ public class Volunteer {
     @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
     @Fetch(FetchMode.JOIN)
     private Set<Post> rejectedFromPosts = new HashSet<>();
-
-
+    
 
 }
 
