@@ -55,14 +55,6 @@ public class CustomUserDetails implements UserDetails {
         return user.getUsername();
     }
 
-    /**
-     * Gets the user corresponding to this CustomUserDetails object
-     * @return the user corresponding to this CustomUserDetails object
-     */
-    public User getUser() {
-        return this.user;
-    }
-
    /*
    Need below methods to return true to make sure auth doesn't fail for unintended reasons
     */

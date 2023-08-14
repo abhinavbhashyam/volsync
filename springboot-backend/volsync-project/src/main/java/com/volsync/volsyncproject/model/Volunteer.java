@@ -61,7 +61,6 @@ public class Volunteer {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
-    @Fetch(FetchMode.JOIN)
     private Set<Post> signedUpPosts = new HashSet<>();
 
     @WhereJoinTable(clause = "status = 'ACCEPTED'")    // only want accepted posts
@@ -72,7 +71,6 @@ public class Volunteer {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
-    @Fetch(FetchMode.JOIN)
     private Set<Post> acceptedToPosts = new HashSet<>();
 
     @WhereJoinTable(clause = "status = 'REJECTED'")    // only want rejected posts
@@ -83,7 +81,6 @@ public class Volunteer {
             inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     @JsonIgnoreProperties({"signedUpVolunteers", "acceptedVolunteers", "rejectedVolunteers"})
-    @Fetch(FetchMode.JOIN)
     private Set<Post> rejectedFromPosts = new HashSet<>();
     
 

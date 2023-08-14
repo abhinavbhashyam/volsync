@@ -40,6 +40,5 @@ public class Organization {
     // one-to-many relation (one organization has many posts)
     @JsonIgnoreProperties("postedByOrganization")
     @OneToMany(mappedBy = "postedByOrganization")
-    @Fetch(FetchMode.JOIN)
     private Set<Post> postedPosts;
 }

@@ -23,13 +23,11 @@ public class VolunteerPost {
 
     // volunteer component (many entries in table correspond to one volunteer)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @MapsId("volunteerId")
     private Volunteer volunteer;
 
     // post component (many entries in the table correspond to one post)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @MapsId("postId")
     private Post post;
 

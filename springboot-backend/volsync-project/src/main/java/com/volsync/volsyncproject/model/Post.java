@@ -46,9 +46,9 @@ public class Post {
     private int numLimit;
 
     // many-to-one with organizations (many posts belong to one organization)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("postedPosts")
+    @JsonIgnoreProperties({"postedPosts", "hibernateLazyInitializer"})
     private Organization postedByOrganization;
 
     /*
@@ -57,19 +57,16 @@ public class Post {
     @ManyToMany(mappedBy = "signedUpPosts")
     @WhereJoinTable(clause = "status = 'PENDING'")    // only want signed up posts
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
-    @Fetch(FetchMode.JOIN)
     private Set<Volunteer> signedUpVolunteers = new HashSet<>();
 
     @ManyToMany(mappedBy = "acceptedToPosts")
     @WhereJoinTable(clause = "status = 'ACCEPTED'")    // only want accepted posts
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
-    @Fetch(FetchMode.JOIN)
     private Set<Volunteer> acceptedVolunteers = new HashSet<>();
 
     @ManyToMany(mappedBy = "rejectedFromPosts")
     @WhereJoinTable(clause = "status = 'REJECTED'")    // only want rejected posts
     @JsonIgnoreProperties({"signedUpPosts", "acceptedToPosts", "rejectedFromPosts"})
-    @Fetch(FetchMode.JOIN)
     private Set<Volunteer> rejectedVolunteers = new HashSet<>();
 
 
