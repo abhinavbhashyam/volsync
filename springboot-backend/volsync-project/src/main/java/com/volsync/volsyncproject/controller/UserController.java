@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Handles requests involving User table in database
  */
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {

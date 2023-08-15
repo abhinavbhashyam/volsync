@@ -11,7 +11,9 @@ class RegistrationService {
         return axios.post(ORG_REG_BASE_REST_API_URL + 'organizations', organization);
     }
 
-    registerUserToOrganization() {
-
+    registerUserToOrganization(organizationId, userId) {
+        return axios.put(ORG_REG_BASE_REST_API_URL + 'organizations/' + organizationId + '/users/' + userId)
     }
 }
+
+export default new RegistrationService();

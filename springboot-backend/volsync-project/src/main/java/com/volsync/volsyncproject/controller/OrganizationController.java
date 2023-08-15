@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Handles HTTP requests involving the organization table in our database
  */
+@CrossOrigin("*")
 @RestController
 @RequestMapping("api/v1/organizations")
 public class OrganizationController {
