@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Controller to handle login requests (for volunteer and organization roles)
  */
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/login")
 public class AuthController {

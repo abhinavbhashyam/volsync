@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Handles HTTP requests involving the posts table in our database
  */
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("api/v1/posts")
 public class PostController {

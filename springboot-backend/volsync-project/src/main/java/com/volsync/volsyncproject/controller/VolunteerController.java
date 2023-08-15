@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Handles HTTP requests involving the volunteer table in our database
  */
+@CrossOrigin("*")
 @RestController
 @RequestMapping("api/v1/volunteers")
 public class VolunteerController {

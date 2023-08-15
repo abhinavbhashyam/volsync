@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * Handles all requests involving the join table (between volunteers and posts (allows us to track which volunteers
  * have signed up for which posts, and what their status to that post is (pending, accepted, rejected)))
  */
+@CrossOrigin("*")
 @RestController
 @RequestMapping("api/v1/volunteer-posts/volunteers")
 public class VolunteerPostController {
