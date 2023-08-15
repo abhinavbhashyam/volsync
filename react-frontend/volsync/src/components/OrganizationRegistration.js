@@ -46,7 +46,12 @@ const OrganizationRegistration = () => {
         }
 
         // then we can sync the organization to the user
-        axios.put(ORGANIZATIONS_API_BASE_URL + '/' + createdOrgId + '/users/' + createdUserId)
+        try {
+            axios.put(ORGANIZATIONS_API_BASE_URL + '/' + createdOrgId + '/users/' + createdUserId)
+        } catch (error) {
+            console.log(error)
+            return
+        }
 
 
     }
