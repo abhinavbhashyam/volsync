@@ -33,10 +33,12 @@ public class OrganizationService {
 
     /**
      * Calls on organization repository to save the given organization
+     *
      * @param organization the organization to save to the repository
+     * @return the newly created organization
      */
-    public void createOrganization(Organization organization) {
-        organizationRepository.save(organization);
+    public Organization createOrganization(Organization organization) {
+        return organizationRepository.save(organization);
     }
 
     /**

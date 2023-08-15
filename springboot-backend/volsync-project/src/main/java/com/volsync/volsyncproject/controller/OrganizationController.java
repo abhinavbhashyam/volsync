@@ -30,13 +30,13 @@ public class OrganizationController {
     /**
      * Creates an organization within the database
      * @param organization the organization to create
-     * @return a HttpStatus indicating the status of this request
+     * @return a ResponseEntity consisting of the newly created organization
      */
     @PostMapping
-    public HttpStatus createOrganization(@RequestBody Organization organization) {
-        organizationService.createOrganization(organization);
+    public ResponseEntity<Organization> createOrganization(@RequestBody Organization organization) {
+        Organization createdOrganization = organizationService.createOrganization(organization);
 
-        return HttpStatus.NO_CONTENT;
+        return new ResponseEntity<Organization>(createdOrganization, HttpStatus.CREATED);
     }
 
     /**
