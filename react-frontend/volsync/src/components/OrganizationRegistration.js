@@ -7,6 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const OrganizationRegistration = () => {
+    // for api calls
+    const USERS_API_BASE_URL = 'http://localhost:8080/api/v1/users'
+    const ORGANIZATIONS_API_BASE_URL = 'http://localhost:8080/api/v1/organizations'
+
     // control state for our three fields
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -42,7 +46,7 @@ const OrganizationRegistration = () => {
         }
 
         // then we can sync the organization to the user
-        axios.put('http://localhost:8080/api/v1/organizations/' + createdOrgId + '/users/' + createdUserId)
+        axios.put(ORGANIZATIONS_API_BASE_URL + '/' + createdOrgId + '/users/' + createdUserId)
 
 
     }
@@ -50,7 +54,7 @@ const OrganizationRegistration = () => {
     // create an organization in the database
     const createOrganization = async (organization) => {
         // create the organization and save the resultant data
-        const res = await axios.post('http://localhost:8080/api/v1/organizations', organization)
+        const res = await axios.post(ORGANIZATIONS_API_BASE_URL, organization)
         const data = res.data
 
         // return the id of the created organization
@@ -61,7 +65,7 @@ const OrganizationRegistration = () => {
     // create a user in the database
     const createUser = async (user) => {
         // create the user and save the resultant data
-        const res = await axios.post('http://localhost:8080/api/v1/users', user)
+        const res = await axios.post(USERS_API_BASE_URL, user)
         const data = res.data
 
         // return the id of the created user
