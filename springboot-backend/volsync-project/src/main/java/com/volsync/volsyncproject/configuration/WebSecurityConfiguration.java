@@ -79,6 +79,7 @@ public class WebSecurityConfiguration {
                     auth.requestMatchers("/api/v1/login/organization").hasAuthority("ORG");
                 })
                 .httpBasic(Customizer.withDefaults())
+                .cors(Customizer.withDefaults())
                 .build();
     }
 
