@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import VolunteerRegistration from './components/VolunteerRegistration';
 import OrganizationRegistration from './components/OrganizationRegistration';
 import Login from './components/Login';
+import VolunteerDashboard from './components/VolunteerDashboard';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/volunteer_registration" element={<VolunteerRegistration />}></Route>
             <Route path="/organization_registration" element={<OrganizationRegistration />}></Route>
             <Route path="/" element={<Login />}></Route>
+            <Route path="/volunteer_dashboard/:username" element={<VolunteerDashboard />}></Route>
           </Routes>
         </div>
       </div>

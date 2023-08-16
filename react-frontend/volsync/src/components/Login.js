@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import axios from "axios";
@@ -13,6 +14,9 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [role, setRole] = useState('')
 
+    // page navigation
+    const navigate = useNavigate()
+
     const loginUser = async (e) => {
         e.preventDefault(); // don't reload page
 
@@ -20,15 +24,15 @@ const Login = () => {
         if (username.trim() && password.trim() && role) {
             try {
                 // basic auth request with username and password
-                const res = await axios.post(`http://localhost:8080/api/v1/login/${role.toLowerCase()}`, {}, {
+                await axios.post(`http://localhost:8080/api/v1/login/${role.toLowerCase()}`, {}, {
                     auth: {
                         username: username,
                         password: password
                     }
                 })
 
-                // action upon successful login
-                console.log(res.data)
+                navigate(`/volunteer_dashboard/${username}`)
+
 
             } catch (error) {
                 // error handling for bad username/password or bad role

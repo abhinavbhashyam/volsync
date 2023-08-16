@@ -5,6 +5,7 @@ import com.volsync.volsyncproject.exception.ResourceNotFoundException;
 import com.volsync.volsyncproject.model.User;
 import com.volsync.volsyncproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -54,15 +55,19 @@ public class UserService {
     }
 
     /**
-     * Get a user by their id
-     * @param userId the id of the user we are trying to get
+     * Get a user by their username
+     * @param username the username of the user we are trying to get
      * @return the user we are trying to get
      */
-    public User getUserById(Long userId) {
+    public User getUserByUsername(String username) {
         // fetch user from database, throwing exception if they are not found
-        User desiredUser = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        User desiredUser = userRepository.findByUsername(username);
 
-        return desiredUser;
+        if (desiredUser == null) {
+            throw new UsernameNotFoundException("Username not found: " + username);
+        } else {
+            return desiredUser;
+        }
     }
+
 }
