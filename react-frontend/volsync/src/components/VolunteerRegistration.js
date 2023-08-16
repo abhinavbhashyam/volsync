@@ -4,6 +4,7 @@ import axios from 'axios';
 // config for toast popup
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const VolunteerRegistration = () => {
     // for api calls
@@ -16,6 +17,9 @@ const VolunteerRegistration = () => {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [applicationMessage, setApplicationMessage] = useState("")
+
+    // for navigation
+    const navigate = useNavigate()
 
     const registerVolunteerAccount = async (e) => {
         e.preventDefault(); // don't refresh the page
@@ -51,6 +55,9 @@ const VolunteerRegistration = () => {
             // then we can sync the volunteer to the user
             try {
                 await axios.put(VOLUNTEERS_API_BASE_URL + '/' + createdVolId + '/users/' + createdUserId)
+
+                // then we can login the organization
+                navigate('/')
             } catch (error) {
                 console.log(error)
             }

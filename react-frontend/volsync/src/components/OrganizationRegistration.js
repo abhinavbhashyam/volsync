@@ -4,6 +4,7 @@ import axios from "axios";
 // config for toast popup
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const OrganizationRegistration = () => {
@@ -15,6 +16,9 @@ const OrganizationRegistration = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [orgName, setOrgName] = useState("")
+
+    // for page navigation
+    const navigate = useNavigate()
 
     const registerOrganizationAccount = async (e) => {
         e.preventDefault(); // don't refresh the page
@@ -50,6 +54,10 @@ const OrganizationRegistration = () => {
             // then we can sync the organization to the user
             try {
                 await axios.put(ORGANIZATIONS_API_BASE_URL + '/' + createdOrgId + '/users/' + createdUserId)
+
+                // then we can login the organization
+                navigate('/')
+
             } catch (error) {
                 console.log(error)
             }
