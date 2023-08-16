@@ -25,16 +25,6 @@ const OrganizationRegistration = () => {
         // construct user object
         const user = { username, password, "role": "ORG" }
 
-        // organization creation
-        let createdOrgId = null
-
-        try {
-            createdOrgId = await createOrganization(organization)
-        } catch (error) {
-            console.log(error)
-            return
-        }
-
         // user creation
         let createdUserId = null
 
@@ -45,9 +35,19 @@ const OrganizationRegistration = () => {
             return
         }
 
+        // organization creation
+        let createdOrgId = null
+
+        try {
+            createdOrgId = await createOrganization(organization)
+        } catch (error) {
+            console.log(error)
+            return
+        }
+
         // then we can sync the organization to the user
         try {
-            axios.put(ORGANIZATIONS_API_BASE_URL + '/' + createdOrgId + '/users/' + createdUserId)
+            await axios.put(ORGANIZATIONS_API_BASE_URL + '/' + createdOrgId + '/users/' + createdUserId)
         } catch (error) {
             console.log(error)
             return
