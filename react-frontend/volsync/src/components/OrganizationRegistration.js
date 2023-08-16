@@ -79,6 +79,7 @@ const OrganizationRegistration = () => {
 
     return (
         <div className='organization_registration template d-flex justify-content-center align-items-center vh-100 bg-primary'>
+            <ToastContainer />
             <div className='form_container p-5 rounded bg-white'>
                 <form>
                     <h3 className='text-center'>Organization Registration</h3>
@@ -108,7 +109,6 @@ const OrganizationRegistration = () => {
                             onChange={(e) => setOrgName(e.target.value)} />
                     </div>
                     <div className='d-grid'>
-                        <ToastContainer />
                         <button className='btn btn-primary' onClick={(e) => registerOrganizationAccount(e)}>Register Organization</button>
                     </div>
                 </form>

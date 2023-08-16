@@ -5,6 +5,7 @@ import com.volsync.volsyncproject.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -30,13 +31,13 @@ public class VolunteerController {
     /**
      * Creates a volunteer within the database
      * @param volunteer the volunteer to create
-     * @return a HttpStatus indicating the status of this request
+     * @return a ResponseEntity corresponding to the newly created volunteer
      */
     @PostMapping
-    public HttpStatus createVolunteer(@RequestBody Volunteer volunteer) {
-        volunteerService.createVolunteer(volunteer);
+    public ResponseEntity<Volunteer> createVolunteer(@RequestBody Volunteer volunteer) {
+        Volunteer createdVolunteer = volunteerService.createVolunteer(volunteer);
 
-        return HttpStatus.NO_CONTENT;
+        return new ResponseEntity<Volunteer>(createdVolunteer, HttpStatus.CREATED);
     }
 
     /**
