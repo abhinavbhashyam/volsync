@@ -25,7 +25,7 @@ const VolunteerRegistration = () => {
         e.preventDefault(); // don't refresh the page
 
         // only proceed if we have values for all fields
-        if (username && password && firstName && lastName && applicationMessage) {
+        if (username.trim() && password.trim() && firstName.trim() && lastName.trim() && applicationMessage.trim()) {
             // construct volunteer object
             const volunteer = { firstName, lastName, applicationMessage }
 

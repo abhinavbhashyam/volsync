@@ -24,7 +24,7 @@ const OrganizationRegistration = () => {
         e.preventDefault(); // don't refresh the page
 
         // only proceed if we have values for all fields
-        if (username && password && orgName) {
+        if (username.trim() && password.trim() && orgName.trim()) {
             // construct organization object
             const organization = { orgName }
 

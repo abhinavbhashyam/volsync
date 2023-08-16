@@ -17,7 +17,7 @@ const Login = () => {
         e.preventDefault(); // don't reload page
 
         // only continue if we have values for all fields
-        if (username && password && role) {
+        if (username.trim() && password.trim() && role) {
             try {
                 // basic auth request with username and password
                 const res = await axios.post(`http://localhost:8080/api/v1/login/${role.toLowerCase()}`, {}, {
