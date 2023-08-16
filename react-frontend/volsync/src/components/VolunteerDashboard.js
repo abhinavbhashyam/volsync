@@ -6,6 +6,8 @@ const VolunteerDashboard = () => {
     // capture the username of the user we signed in
     const { username } = useParams()
 
+    // maybe save this username here
+
     // manage state for our signed in volunteer
     const [volunteer, setVolunteer] = useState()
 
@@ -15,6 +17,7 @@ const VolunteerDashboard = () => {
         const getVolunteer = async () => {
             const volunteerFromServer = await fetchVolunteer()
             setVolunteer(volunteerFromServer)
+            console.log("fetch")
         }
 
         getVolunteer()
@@ -25,8 +28,6 @@ const VolunteerDashboard = () => {
         const res = await axios.get(`http://localhost:8080/api/v1/users/${username}`)
         return res.data.volunteer
     }
-
-    console.log(volunteer)
 
     return (
         <h3>
