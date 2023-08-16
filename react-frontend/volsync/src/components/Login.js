@@ -11,27 +11,37 @@ const Login = () => {
     // control state for our three fields
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [role, setRole] = useState("")
+    const [role, setRole] = useState('')
 
     const loginUser = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // don't reload page
 
-        try {
-            const res = await axios.post('http://localhost:8080/api/v1/login/volunteer', {}, {
-                auth: {
-                    username: username,
-                    password: password
+        // only continue if we have values for all fields
+        if (username && password && role) {
+            try {
+                // basic auth request with username and password
+                const res = await axios.post(`http://localhost:8080/api/v1/login/${role.toLowerCase()}`, {}, {
+                    auth: {
+                        username: username,
+                        password: password
+                    }
+                })
+
+            } catch (error) {
+                // error handling for bad username/password or bad role
+                if (error.response.status === 401) {
+                    toast("Check that your username and password are correct!")
+                } else if (error.response.status === 403) {
+                    toast("Check that your account type is correct")
                 }
-            })
-        } catch (error) {
-            if (error.response.status === 401) {
-                toast("Check that your username and password are correct!")
-            } else if (error.response.status === 403) {
-                toast("Check that your account type is correct")
+
             }
 
-            return
+        } else {
+            // don't have values for all fields, toast and finish execution
+            toast("Fill in all fields!")
         }
+
 
     }
 

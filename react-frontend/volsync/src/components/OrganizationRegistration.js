@@ -19,38 +19,42 @@ const OrganizationRegistration = () => {
     const registerOrganizationAccount = async (e) => {
         e.preventDefault(); // don't refresh the page
 
-        // construct organization object
-        const organization = { orgName }
+        // only proceed if we have values for all fields
+        if (username && password && orgName) {
+            // construct organization object
+            const organization = { orgName }
 
-        // construct user object
-        const user = { username, password, "role": "ORG" }
+            // construct user object
+            const user = { username, password, "role": "ORG" }
 
-        // user creation
-        let createdUserId = null
+            // user creation
+            let createdUserId = null
 
-        try {
-            createdUserId = await createUser(user)
-        } catch (error) {
-            toast(error.response.data.message)
-            return
-        }
+            try {
+                createdUserId = await createUser(user)
+            } catch (error) {
+                toast(error.response.data.message)
+                return
+            }
 
-        // organization creation
-        let createdOrgId = null
+            // organization creation
+            let createdOrgId = null
 
-        try {
-            createdOrgId = await createOrganization(organization)
-        } catch (error) {
-            console.log(error)
-            return
-        }
+            try {
+                createdOrgId = await createOrganization(organization)
+            } catch (error) {
+                console.log(error)
+                return
+            }
 
-        // then we can sync the organization to the user
-        try {
-            await axios.put(ORGANIZATIONS_API_BASE_URL + '/' + createdOrgId + '/users/' + createdUserId)
-        } catch (error) {
-            console.log(error)
-            return
+            // then we can sync the organization to the user
+            try {
+                await axios.put(ORGANIZATIONS_API_BASE_URL + '/' + createdOrgId + '/users/' + createdUserId)
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            toast("Fill in all fields!")
         }
 
 

@@ -20,38 +20,42 @@ const VolunteerRegistration = () => {
     const registerVolunteerAccount = async (e) => {
         e.preventDefault(); // don't refresh the page
 
-        // construct volunteer object
-        const volunteer = { firstName, lastName, applicationMessage }
+        // only proceed if we have values for all fields
+        if (username && password && firstName && lastName && applicationMessage) {
+            // construct volunteer object
+            const volunteer = { firstName, lastName, applicationMessage }
 
-        // construct user object
-        const user = { username, password, "role": "VOL" }
+            // construct user object
+            const user = { username, password, "role": "VOL" }
 
-        // user creation
-        let createdUserId = null
+            // user creation
+            let createdUserId = null
 
-        try {
-            createdUserId = await createUser(user)
-        } catch (error) {
-            toast(error.response.data.message)
-            return
-        }
+            try {
+                createdUserId = await createUser(user)
+            } catch (error) {
+                toast(error.response.data.message)
+                return
+            }
 
-        // volunteer creation
-        let createdVolId = null
+            // volunteer creation
+            let createdVolId = null
 
-        try {
-            createdVolId = await createVolunteer(volunteer)
-        } catch (error) {
-            console.log(error)
-            return
-        }
+            try {
+                createdVolId = await createVolunteer(volunteer)
+            } catch (error) {
+                console.log(error)
+                return
+            }
 
-        // then we can sync the volunteer to the user
-        try {
-            await axios.put(VOLUNTEERS_API_BASE_URL + '/' + createdVolId + '/users/' + createdUserId)
-        } catch (error) {
-            console.log(error)
-            return
+            // then we can sync the volunteer to the user
+            try {
+                await axios.put(VOLUNTEERS_API_BASE_URL + '/' + createdVolId + '/users/' + createdUserId)
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            toast("Fill in all fields!")
         }
 
 
