@@ -28,7 +28,7 @@ const Login = () => {
                 })
 
                 // action upon successful login
-                console.log(res)
+                console.log(res.data)
 
             } catch (error) {
                 // error handling for bad username/password or bad role
