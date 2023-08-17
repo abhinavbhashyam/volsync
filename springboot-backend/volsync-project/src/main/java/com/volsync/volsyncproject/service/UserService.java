@@ -55,19 +55,16 @@ public class UserService {
     }
 
     /**
-     * Get a user by their username
-     * @param username the username of the user we are trying to get
+     * Get a user by their id
+     * @param id the id of the user we are trying to get
      * @return the user we are trying to get
      */
-    public User getUserByUsername(String username) {
+    public User getUserById(Long id) {
         // fetch user from database, throwing exception if they are not found
-        User desiredUser = userRepository.findByUsername(username);
+        User desiredUser = userRepository
+                .findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
-        if (desiredUser == null) {
-            throw new UsernameNotFoundException("Username not found: " + username);
-        } else {
-            return desiredUser;
-        }
+        return desiredUser;
     }
 
 }

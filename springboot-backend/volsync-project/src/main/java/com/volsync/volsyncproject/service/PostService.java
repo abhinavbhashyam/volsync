@@ -8,8 +8,6 @@ import com.volsync.volsyncproject.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * Service layer to interact with repository layer of Post and Organization
  */
@@ -35,10 +33,12 @@ public class PostService {
 
     /**
      * Creates a post within the database
+     *
      * @param post the post to create
+     * @return the created post
      */
-    public void createPost(Post post) {
-        postRepository.save(post);
+    public Post createPost(Post post) {
+        return postRepository.save(post);
     }
 
     /**

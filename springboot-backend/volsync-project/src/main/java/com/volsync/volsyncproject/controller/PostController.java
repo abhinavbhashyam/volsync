@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 
 /**
@@ -33,13 +32,13 @@ public class PostController {
     /**
      * Adds a post to the database (calls on service class)
      * @param post the post to add
-     * @return a HttpStatus indicating the status of this request
+     * @return a ResponseEntity corresponding to the created post
      */
     @PostMapping
-    public HttpStatus createPost(@RequestBody Post post) {
-        postService.createPost(post);
+    public ResponseEntity<Post> createPost(@RequestBody Post post) {
+        Post createdPost = postService.createPost(post);
 
-        return HttpStatus.NO_CONTENT;
+        return new ResponseEntity<Post>(createdPost, HttpStatus.CREATED);
     }
 
     /**

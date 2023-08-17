@@ -4,14 +4,11 @@ import com.volsync.volsyncproject.exception.ResourceNotFoundException;
 import com.volsync.volsyncproject.model.*;
 import com.volsync.volsyncproject.repository.PostRepository;
 import com.volsync.volsyncproject.repository.UserRepository;
-import com.volsync.volsyncproject.repository.VolunteerPostRepository;
 import com.volsync.volsyncproject.repository.VolunteerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -91,7 +88,7 @@ public class VolunteerService {
     /**
      * Gets all the posts a volunteer can discover
      * @param volunteerId the id of the volunteer
-     * @return the set of posts a volunteer can discover (in discover page of frontend of app)
+     * @return the set of posts a volunteer can discover
      */
     public Set<Post> getDiscoverPostsForVolunteer(Long volunteerId) {
         // find the volunteer
