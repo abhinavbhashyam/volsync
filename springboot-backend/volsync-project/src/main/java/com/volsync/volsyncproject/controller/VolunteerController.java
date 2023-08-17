@@ -70,6 +70,11 @@ public class VolunteerController {
 
     }
 
+    /**
+     * Gets all the posts a volunteer can discover
+     * @param volunteerId the id of the volunteer
+     * @return the set of all the posts a volunteer can discover
+     */
     @GetMapping("/{volunteerId}/posts")
     public ResponseEntity<Set<Post>> getDiscoverPostsForVolunteer(@PathVariable Long volunteerId) {
         Set<Post> discoverPosts = volunteerService.getDiscoverPostsForVolunteer(volunteerId);

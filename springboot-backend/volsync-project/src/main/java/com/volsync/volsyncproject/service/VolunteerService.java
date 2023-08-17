@@ -89,6 +89,11 @@ public class VolunteerService {
         return volunteer;
     }
 
+    /**
+     * Gets all the posts a volunteer can discover
+     * @param volunteerId the id of the volunteer
+     * @return the set of posts a volunteer can discover (in discover page of frontend of app)
+     */
     public Set<Post> getDiscoverPostsForVolunteer(Long volunteerId) {
         // find the volunteer
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
