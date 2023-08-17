@@ -44,18 +44,4 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
 
     }
-
-    /**
-     * Get a user from the database based on their id
-     * @param userId the id of the user we want
-     * @return a ResponseEntity corresponding to the user we wanted to get
-     */
-    @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
-        User user = userService.getUserById(userId);
-
-        return new ResponseEntity<User>(user, HttpStatus.OK);
-    }
-
-
 }

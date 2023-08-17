@@ -5,6 +5,7 @@ import com.volsync.volsyncproject.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -32,13 +33,11 @@ public class PostController {
     /**
      * Adds a post to the database (calls on service class)
      * @param post the post to add
-     * @return a ResponseEntity corresponding to the created post
+     * @return a HttpStatus corresponding to the status of this request
      */
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        Post createdPost = postService.createPost(post);
-
-        return new ResponseEntity<Post>(createdPost, HttpStatus.CREATED);
+    public HttpStatus createPost(@RequestBody Post post) {
+        return HttpStatus.NO_CONTENT;
     }
 
     /**
