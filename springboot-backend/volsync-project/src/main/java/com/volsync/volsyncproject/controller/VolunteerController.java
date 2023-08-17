@@ -1,5 +1,6 @@
 package com.volsync.volsyncproject.controller;
 
+import com.volsync.volsyncproject.model.Post;
 import com.volsync.volsyncproject.model.Volunteer;
 import com.volsync.volsyncproject.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Handles HTTP requests involving the volunteer table in our database
@@ -64,6 +68,13 @@ public class VolunteerController {
 
         return new ResponseEntity<Volunteer>(volunteer, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/{volunteerId}/posts")
+    public ResponseEntity<Set<Post>> getDiscoverPostsForVolunteer(@PathVariable Long volunteerId) {
+        Set<Post> discoverPosts = volunteerService.getDiscoverPostsForVolunteer(volunteerId);
+
+        return new ResponseEntity<Set<Post>>(discoverPosts, HttpStatus.OK);
     }
 
 

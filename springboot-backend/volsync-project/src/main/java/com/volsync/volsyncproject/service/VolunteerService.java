@@ -9,6 +9,12 @@ import com.volsync.volsyncproject.repository.VolunteerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
+
 /**
  * Service layer that directly interacts with repository layer to perform database operations
  */
@@ -21,17 +27,22 @@ public class VolunteerService {
     // reference to user repository
     public final UserRepository userRepository;
 
+    // reference to post repository
+    public final PostRepository postRepository;
+
 
     /**
      * Dependency injection for volunteerRepository and userRepository
      * @param volunteerRepository reference to volunteer repository layer
      * @param userRepository reference to user repository layer
+     * @param postRepository reference to our post repository layer
      */
     @Autowired
     public VolunteerService(VolunteerRepository volunteerRepository, UserRepository userRepository,
                             VolunteerPostRepository volunteerPostRepository, PostRepository postRepository) {
         this.volunteerRepository = volunteerRepository;
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     /**
@@ -70,11 +81,36 @@ public class VolunteerService {
      * @return the volunteer with id = volunteerId
      */
     public Volunteer getVolunteerById(Long volunteerId) {
-        // find the organization
+        // find the volunteer
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Volunteer doesn't exist with id: " + volunteerId));
 
         // return it
         return volunteer;
+    }
+
+    public Set<Post> getDiscoverPostsForVolunteer(Long volunteerId) {
+        // find the volunteer
+        Volunteer volunteer = volunteerRepository.findById(volunteerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Volunteer doesn't exist with id: " + volunteerId));
+
+        // list of all posts
+        Set<Post> allPosts = new HashSet<>(postRepository.findAll());
+
+        // references to our signed up/accepted/rejected lists
+        Set<Post> signedUpPosts = volunteer.getSignedUpPosts();
+        Set<Post> acceptedToPosts = volunteer.getAcceptedToPosts();
+        Set<Post> rejectedFromPosts = volunteer.getRejectedFromPosts();
+
+        // need to combine all posts that I've signed up/accepted to/rejected from
+        Set<Post> sarPosts = new HashSet<>();
+
+        Stream.of(signedUpPosts, acceptedToPosts, rejectedFromPosts).forEach(sarPosts::addAll);
+
+        // now I want to remove from all posts the ones I've already interacted with
+        allPosts.removeAll(sarPosts);
+
+        // return the removed result
+        return allPosts;
     }
 }
