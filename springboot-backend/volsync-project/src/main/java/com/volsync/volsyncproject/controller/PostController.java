@@ -37,6 +37,8 @@ public class PostController {
      */
     @PostMapping
     public HttpStatus createPost(@RequestBody Post post) {
+        postService.createPost(post);
+
         return HttpStatus.NO_CONTENT;
     }
 
