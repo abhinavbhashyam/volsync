@@ -32,14 +32,13 @@ public class VolunteerService {
 
 
     /**
-     * Dependency injection for volunteerRepository and userRepository
+     * Dependency injection for volunteerRepository, userRepository, postRepository
      * @param volunteerRepository reference to volunteer repository layer
      * @param userRepository reference to user repository layer
      * @param postRepository reference to our post repository layer
      */
     @Autowired
-    public VolunteerService(VolunteerRepository volunteerRepository, UserRepository userRepository,
-                            VolunteerPostRepository volunteerPostRepository, PostRepository postRepository) {
+    public VolunteerService(VolunteerRepository volunteerRepository, UserRepository userRepository, PostRepository postRepository) {
         this.volunteerRepository = volunteerRepository;
         this.userRepository = userRepository;
         this.postRepository = postRepository;
