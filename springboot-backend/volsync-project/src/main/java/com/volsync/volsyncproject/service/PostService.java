@@ -35,9 +35,10 @@ public class PostService {
      * Creates a post within the database
      *
      * @param post the post to create
+     * @return the newly saved post
      */
-    public void createPost(Post post) {
-        postRepository.save(post);
+    public Post createPost(Post post) {
+        return postRepository.save(post);
     }
 
     /**

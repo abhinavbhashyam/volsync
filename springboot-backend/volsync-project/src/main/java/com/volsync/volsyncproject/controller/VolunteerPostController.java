@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @CrossOrigin("*")
 @RestController
-@RequestMapping("api/v1/volunteer-posts/volunteers")
+@RequestMapping("api/v1/volunteer-posts")
 public class VolunteerPostController {
 
     // reference to service layer
@@ -32,7 +32,7 @@ public class VolunteerPostController {
      * @param postId the id of the post that we are signing up the volunteer to
      * @return a HttpStatus indicating the status of this request
      */
-    @PostMapping("/{volunteerId}/posts/{postId}")
+    @PostMapping("/volunteers/{volunteerId}/posts/{postId}")
     public HttpStatus assignPostToVolunteer(@PathVariable Long volunteerId, @PathVariable Long postId) {
         volunteerPostService.assignPostToVolunteer(volunteerId, postId);
 
@@ -46,7 +46,7 @@ public class VolunteerPostController {
      * @param newStatus the new status to the post
      * @return a HttpStatus indicating the status of this request
      */
-    @PutMapping("/{volunteerId}/posts/{postId}")
+    @PutMapping("/volunteers/{volunteerId}/posts/{postId}")
     public HttpStatus
     updateStatusForVolunteerPost(@PathVariable Long volunteerId, @PathVariable Long postId,
                                                                       @RequestParam("status") String newStatus) {

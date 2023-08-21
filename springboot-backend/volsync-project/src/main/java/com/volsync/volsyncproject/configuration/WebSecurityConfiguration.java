@@ -73,7 +73,7 @@ public class WebSecurityConfiguration {
                     auth.requestMatchers("/api/v1/organizations").permitAll();
                     auth.requestMatchers("/api/v1/volunteers").permitAll();
                     auth.requestMatchers("/api/v1/posts").permitAll();
-                    auth.requestMatchers("/api/v1/volunteer-posts/volunteers").permitAll();
+                    auth.requestMatchers("/api/v1/volunteer-posts").permitAll();
                     // log in requires auth
                     auth.requestMatchers("/api/v1/login/volunteer").hasAuthority("VOL");
                     auth.requestMatchers("/api/v1/login/organization").hasAuthority("ORG");

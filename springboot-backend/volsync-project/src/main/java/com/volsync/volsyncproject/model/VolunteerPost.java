@@ -1,6 +1,5 @@
 package com.volsync.volsyncproject.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.volsync.volsyncproject.primary_key.VolunteerPostId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
