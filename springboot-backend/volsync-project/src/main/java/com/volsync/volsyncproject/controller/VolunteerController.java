@@ -71,7 +71,7 @@ public class VolunteerController {
     /**
      * Gets all the posts a volunteer can discover
      * @param volunteerId the id of the volunteer
-     * @return the set of all the posts a volunteer can discover
+     * @return a ResponseEntity corresponding to the set of all the posts a volunteer can discover
      */
     @GetMapping("/{volunteerId}/posts")
     public ResponseEntity<Set<Post>> getDiscoverPostsForVolunteer(@PathVariable Long volunteerId) {
