@@ -10,5 +10,5 @@ Volsync facilitates the interaction between organizations that are looking for v
 3. Volunteers can then sign up for the tasks that suit their specific interests and talents
 4. Organizations will then have the ability to accept/reject volunteers to their events in an effort to recruit the necessary talent for their events
 
-For information regarding how these specific tasks (in addition to other functionalities like authentication/authorization using Spring Secuirty) have been implemented, please take a look at the source code. Source code has been extensively documented with Javadoc documentation.
+For information regarding how these specific tasks (in addition to other functionalities like authentication/authorization using Spring Security) have been implemented, please take a look at the source code. Source code has been extensively documented with Javadoc documentation.
 
