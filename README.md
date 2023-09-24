@@ -15,8 +15,9 @@ For information regarding how these specific tasks (in addition to other functio
 ## Trying the App
 Please take the following steps to test this app locally:
 
-1. Download a zip version of this repository
-2. Download MySQL Workbench
-3. Open up MySQL Workbench and create a new database connection with default username of "root" and password "Ramanuja1234"
-4. Open up this database connection and create a new schema in this connected server. Name this new schema "volsync"
-5. Finally, run the "VolsyncProjectApplication.java" file, and use Postman to test any of the API endpoints defined in the code!
+1. Download a zip version of this repository.
+2. Follow [this tutorial](https://www.youtube.com/watch?v=u96rVINbAUI) to install MySQL (Server and Workbench).
+3. When prompted to enter MySQL Root Password (while following the above tutorial), enter "Ramanuja1234".
+4. Continue following the tutorial to open up a new database connection.
+5. Once a database connection has been opened up, create a new schema titled "volsync".
+6. Finally, run the "VolsyncProjectApplication.java" file, and use Postman to test any of the API endpoints defined in the code!
