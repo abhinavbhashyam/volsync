@@ -16,7 +16,7 @@ For information regarding how these specific tasks (in addition to other functio
 Please take the following steps to test this app locally:
 
 1. Download a zip version of this repository.
-2. Follow [this tutorial](https://www.youtube.com/watch?v=u96rVINbAUI) to install MySQL (Server and Workbench) (note: make sure you download the MySQL Installer! This will ensure MySQL Server and MySQL Workbench are downloaded and configured appropriately).
+2. Follow [this tutorial](https://www.youtube.com/watch?v=u96rVINbAUI) to install MySQL (Server and Workbench) (note: if you're on Windows, make sure you download the MySQL Installer! This will ensure MySQL Server and MySQL Workbench are downloaded and configured appropriately).
 3. When prompted to enter MySQL Root Password (while following the above tutorial), enter "Ramanuja1234".
 4. Continue following the tutorial to open up a new database connection.
 5. Once a database connection has been opened up, create a new schema titled "volsync".
