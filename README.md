@@ -20,4 +20,4 @@ Please take the following steps to test this app locally:
 3. When prompted to enter MySQL Root Password (while following the above tutorial), enter "Ramanuja1234".
 4. Continue following the tutorial to open up a new database connection.
 5. Once a database connection has been opened up, create a new schema titled "volsync".
-6. Finally, run the "VolsyncProjectApplication.java" file, and use Postman to test any of the API endpoints defined in the code!
+6. Finally, run the "VolsyncProjectApplication.java" file, and use Postman to test any of the API endpoints defined in the code! (note: application has been tested using JDK 17)
