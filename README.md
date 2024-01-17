@@ -12,7 +12,7 @@ Volsync facilitates the interaction between organizations that are looking for v
 
 For information regarding how these specific tasks (in addition to other functionalities like authentication/authorization using Spring Security) have been implemented in the API, please take a look at the source code. Source code has been extensively documented with Javadoc documentation.
 
-## Trying the API
+## Testing the API
 Please take the following steps to test this API locally:
 
 1. Download a zip version of this repository.
